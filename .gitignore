@@ -30,3 +30,4 @@ config/settings/*
 
 # others
 *.sqlite3
+node_modules/
