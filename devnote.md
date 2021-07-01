@@ -10,6 +10,17 @@ docker build -t (이미지이름) (경로. 보통 '.'으로 현재폴더를 가�
 ```console
 docker build -t aistoc-web-dev001 .
 ```
+### compose 명령어
+실행
+```console
+docker-compose up
+```
+
+정지
+```console
+docker-compose down
+```
+
 
 ## django 실행
 
