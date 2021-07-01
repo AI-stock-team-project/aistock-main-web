@@ -11,7 +11,7 @@ Thumbs.db
 # Django
 __pycache__/
 
-# Pytho Environments
+# Python virtual environments
 .env
 .venv
 env/
@@ -20,10 +20,13 @@ ENV/
 env.bak/
 venv.bak/
 
-# db
-*.sqlite3
-
 # settings
 config/settings/*
 !config/settings/base.py
 !config/settings/generate_secretkey.py
+
+# docker envs
+.*.env
+
+# others
+*.sqlite3
