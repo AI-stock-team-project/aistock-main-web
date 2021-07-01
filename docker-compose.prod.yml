@@ -1,0 +1,21 @@
+version: "3.9"
+services: 
+  webapp:
+    build:
+      context: .
+      dockerfile: ./.docker-config/Dockerfile.prod
+      args:
+        buildno: 1
+    environment: 
+      - DJANGO_SETTINGS_MODULE=config.settings.local
+    command: python manage.py runserver
+    ports:
+      - 28000:8000
+    depends_on: 
+      - db
+  db:
+    image: mysql:5.7
+    env_file:
+      - ./.docker-config/.env
+    ports:
+      - 23306:3306
