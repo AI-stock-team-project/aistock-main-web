@@ -11,7 +11,7 @@
 
 
 # 설치
-## 필요한 라이브러리
+## 사용된 라이브러리
 `requirements.txt`에 기술됨
 * django (asgiref, pytz, sqlparse 포함됨)
 * mysqlclient
@@ -36,19 +36,24 @@ pip나 python을 VSCode 하단의 터미널(powershell은 안 됨에 주의)에�
 ### (공통) local.py 환경설정 만들기
 
 1. `./config/settings/local.example.py`을 복사해서 `./config/settings/local.py`를 새로 만든다.
-2. 위의 설정파일에서 입력해줘야 할 것들
-  1. SECRET_KEY : `config/settings/generate_secretkey.py`를 파이썬으로 실행(`python config/settings/generate_secretkey.py`하면 키를 랜덤하게 생성해주는데, 이 키를 복사해서 넣어주도록 한다.
-  2. DATABASES : 데이터베이스 연결을 위한 설정을 입력해준다. (Docker 사용시 설정 안 해도 됨)
+2. 위의 설정파일(`local.py`)에서 입력해줘야 할 것들
+  1. `SECRET_KEY`설정 : 다음의 커맨드를 실행하면 키를 랜덤하게 생성해주는데, 이 키를 복사해서 넣어주도록 한다.
+```console
+python config/settings/generate_secretkey.py
+```
+  2. `DATABASES` : 데이터베이스 연결을 위한 설정을 입력해준다. (Docker 사용시 설정 안 해도 됨)
 
 
 
 ### (CASE - 1) 도커 사용시
 1. 도커를 설치한다.
 2. `.docker-config` 폴더에서 `.dev.env.example`을 복사해서 `.dev.env`파일을 새로 만든다.
-3. 위의 설정 파일에서 변경해줘야 할 것들
+3. 위의 설정 파일(`.dev.env`)에서 변경해줘야 할 것들
   - MYSQL_ROOT_PASSWORD, MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD 를 입력해준다. 
 4. 도커 이미지 및 컨테이너를 포함하는 'docker compose'를 생성한다.
-  - (커맨드에서) `docker-compose --env-file=./.docker-config/.dev.env up --build --force-recreate -d`
+```console
+docker-compose --env-file=./.docker-config/.dev.env up --build --force-recreate -d
+```
 5. 자동으로 실행이 된다.
 
 
@@ -58,10 +63,15 @@ pip나 python을 VSCode 하단의 터미널(powershell은 안 됨에 주의)에�
 
 과정
 1. `config/settings/local.py` (위에서 설명함)에서 데이터베이스 설정을 해준다.
-2. `pip install -r requirements.txt`로 관련 패키지를 설치해준다.
+2. pip 명령어로 관련 패키지를 설치해준다.
+```console
+pip install -r requirements.txt
+```
 3. 실행하기
-  1. (커맨드에서) `mysite`
-  2. (커맨드에서) `python manage.py runserver`
+```console
+mysite
+python manage.py runserver
+```
 
 
 
