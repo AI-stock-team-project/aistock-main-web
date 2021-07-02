@@ -14,7 +14,7 @@ RUN python setup.py bdist_wheel
 
 # slim-buster 는 우분투의 경량화 버전을 말함
 FROM python:3.9.5-slim-buster
-WORKDIR /www/web
+WORKDIR /app/web
 
 # requirements.txt 를 먼저 복사함. 
 COPY ../requirements.txt ..
@@ -30,4 +30,4 @@ RUN pip install ../mysqlclient-2.0.3-cp39-cp39-linux_x86_64.whl
 RUN pip install -r ../requirements.txt
 
 # 소스 코드 복사
-COPY ../ .
+# COPY ../ .

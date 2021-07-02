@@ -36,4 +36,4 @@ COPY ../ .
 RUN apt-get update && apt-get install -y cron git && apt-get autoremove -y \
   && rm -rf /var/lib/apt/lists/*
 
-COPY production_cron_git_pull.sh ../
+COPY production_cron_git_pull.sh ..

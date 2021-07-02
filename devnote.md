@@ -1,5 +1,18 @@
 # 자주 사용되는 명령어
 ## Docker
+### Docker 생성하기
+개발용(dev)
+```console
+docker-compose --env-file=./.docker-config/.dev.env up --build --force-recreate -d
+```
+
+프로덕션 (prod)
+```console
+docker-compose --env-file=./.docker-config/.prod.env up --build --force-recreate -d
+```
+
+
+
 ### Dockerfile 로 Docker 생성
 구문 (Dockerfile -> Docker image 생성)
 ```console
