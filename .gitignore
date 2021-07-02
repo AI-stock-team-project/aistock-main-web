@@ -27,7 +27,10 @@ config/settings/*
 !config/settings/local.example.py
 
 # docker envs
-.*.env
+.docker-config/*
+!.dev.env.example
+!Dockerfile.dev
+!Dockerfile.prod
 
 # others
 *.sqlite3

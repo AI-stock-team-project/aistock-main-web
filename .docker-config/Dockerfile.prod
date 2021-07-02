@@ -12,9 +12,9 @@ WORKDIR /mysqlclient-2.0.3
 RUN python setup.py bdist_wheel
 
 
-# slim-buster 는 우분투의 경량화 버전을 말함
+# slim-buster 는 데비안의 경량화 버전을 말함
 FROM python:3.9.5-slim-buster
-WORKDIR /www/web
+WORKDIR /app/web
 
 # requirements.txt 를 먼저 복사함. 
 COPY ../requirements.txt ..
@@ -30,10 +30,15 @@ RUN pip install ../mysqlclient-2.0.3-cp39-cp39-linux_x86_64.whl
 RUN pip install -r ../requirements.txt
 
 # 소스 코드 복사
-COPY ../ .
+# COPY ../ .
 
 # cron 스케쥴링을 위한 부분 (cron, git)
 RUN apt-get update && apt-get install -y cron git && apt-get autoremove -y \
   && rm -rf /var/lib/apt/lists/*
 
+
+# git 으로 받는 부분을 구성해야 함.
+
+
+# cron 스케쥴링 추가
 COPY production_cron_git_pull.sh ..

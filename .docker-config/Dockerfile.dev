@@ -12,7 +12,7 @@ WORKDIR /mysqlclient-2.0.3
 RUN python setup.py bdist_wheel
 
 
-# slim-buster 는 우분투의 경량화 버전을 말함
+# slim-buster 는 데비안의 경량화 버전을 말함
 FROM python:3.9.5-slim-buster
 WORKDIR /app/web
 
