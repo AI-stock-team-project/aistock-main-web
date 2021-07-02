@@ -1,0 +1,39 @@
+# 배포용 WebApplication 도커 파일
+
+# mysqlclient 패키지를 빌드 (경량화하기 위해 빌드함)
+FROM python:3.9.5-slim-buster AS builder
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends default-libmysqlclient-dev gcc \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+RUN pip download mysqlclient==2.0.3 \
+ && tar xzf mysqlclient-2.0.3.tar.gz
+WORKDIR /mysqlclient-2.0.3
+RUN python setup.py bdist_wheel
+
+
+# slim-buster 는 우분투의 경량화 버전을 말함
+FROM python:3.9.5-slim-buster
+WORKDIR /www/web
+
+# requirements.txt 를 먼저 복사함. 
+COPY ../requirements.txt ..
+
+# mysqlclient 설치를 위해 필요한 부분들 apt-get install
+RUN apt-get update && apt-get install -y default-libmysqlclient-dev && rm -rf /var/lib/apt/lists/*
+COPY --from=builder /mysqlclient-2.0.3/dist/mysqlclient-2.0.3-cp39-cp39-linux_x86_64.whl ..
+RUN pip install ../mysqlclient-2.0.3-cp39-cp39-linux_x86_64.whl
+# 위의 방식을 사용하지 않고 그냥 바로 설치하고 싶다면 다음의 명령어를 수행하면 mysqlclient를 설치할 수 있다. (대신 용량이 커짐)
+# RUN apt-get update && apt-get install -y python3-dev default-libmysqlclient-dev build-essential
+
+# pip 의존성 설치
+RUN pip install -r ../requirements.txt
+
+# 소스 코드 복사
+COPY ../ .
+
+# cron 스케쥴링을 위한 부분 (cron, git)
+RUN apt-get update && apt-get install -y cron git && apt-get autoremove -y \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY production_cron_git_pull.sh ..

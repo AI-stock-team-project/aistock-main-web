@@ -1,15 +1,17 @@
-__pycache__/
+# General
+.DS_Store
+Thumbs.db
 
 # Editors
 .vscode/*
 !.vscode/settings.json
 .idea/
+*.code-workspace
 
-# OS
-.DS_Store
-Thumbs.db
+# Django
+__pycache__/
 
-# Environments
+# Python virtual environments
 .env
 .venv
 env/
@@ -18,9 +20,15 @@ ENV/
 env.bak/
 venv.bak/
 
-# db
-*.sqlite3
-
 # settings
-config/settings/local.py
-config/settings/production.py
+config/settings/*
+!config/settings/base.py
+!config/settings/generate_secretkey.py
+!config/settings/local.example.py
+
+# docker envs
+.*.env
+
+# others
+*.sqlite3
+node_modules/

@@ -1,0 +1,27 @@
+version: "3.9"
+services: 
+  webapp:
+    build:
+      context: .
+      dockerfile: ./.docker-config/Dockerfile.prod
+    environment: 
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+      - DB_HOST=db
+      - DB_PORT=${MYSQL_PORT}
+      - DB_DATABASE=${MYSQL_DATABASE}
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 28000:8000
+    depends_on: 
+      - db
+  db:
+    image: mysql:${MYSQL_IMAGE_VER}
+    environment: 
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - ${MYSQL_PORT_EXTERNAL}:${MYSQL_PORT}
