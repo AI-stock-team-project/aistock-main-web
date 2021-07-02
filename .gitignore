@@ -24,6 +24,7 @@ venv.bak/
 config/settings/*
 !config/settings/base.py
 !config/settings/generate_secretkey.py
+!config/settings/local.example.py
 
 # docker envs
 .*.env
