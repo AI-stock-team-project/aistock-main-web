@@ -1,6 +1,6 @@
 # 자주 사용되는 명령어
 ## Docker
-### Docker 생성하기
+### 이 프로젝트에서 Docker 생성하기 
 개발용(dev)
 ```console
 docker-compose --env-file=./.docker-config/.dev.env up --build --force-recreate -d
@@ -23,6 +23,14 @@ docker build -t (이미지이름) (경로. 보통 '.'으로 현재폴더를 가�
 ```console
 docker build -t aistoc-web-dev001 .
 ```
+
+예시2) Dockerfile 명을 지정해줘야 할 때
+```console
+docker build -f Dockerfile.dev -t aistoc-web-dev001 .
+```
+
+
+
 ### compose 명령어
 실행
 ```console
@@ -34,14 +42,31 @@ docker-compose up
 docker-compose down
 ```
 
+이미지 빌드와 동시에 실행
+```console
+docker-compose up --build
+```
 
-## django 실행
+이미지 빌드와 동시에 실행 (+백그라운드 실행)
+```console
+docker-compose up --build -d
+```
 
-django 실행
+
+
+## django
+### django 실행
 
 ```console
 python manage.py runserver
 ```
+
+### migrate 
+테이블을 데이터베이스에 적용시킬 때
+```console
+python manage.py migrate
+```
+
 
 
 ## 파이썬 패키지 관리
@@ -55,6 +80,7 @@ requirements.txt 로부터 패키지 설치
 ```console
 pip install -r requirements.txt
 ```
+
 
 
 ### pip

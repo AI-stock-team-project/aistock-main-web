@@ -65,6 +65,7 @@ docker-compose --env-file=./.docker-config/.dev.env up --build --force-recreate 
 1. `config/settings/local.py` (위에서 설명함)에서 데이터베이스 설정을 해준다.
 2. pip 명령어로 관련 패키지를 설치해준다.
 ```console
+mysite
 pip install -r requirements.txt
 ```
 3. 실행하기
@@ -72,6 +73,9 @@ pip install -r requirements.txt
 mysite
 python manage.py runserver
 ```
+
+참고
+* `mysite`는 파이썬 가상환경을 셋팅해주는 스크립트이다.
 
 
 
