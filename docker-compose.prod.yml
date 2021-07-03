@@ -3,7 +3,7 @@ services:
   webapp:
     build:
       context: .
-      dockerfile: ./.docker-config/Dockerfile.prod
+      dockerfile: ${APP_DOCKFILE}
     environment: 
       - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
       - DB_HOST=db
@@ -13,7 +13,9 @@ services:
       - DB_PASSWORD=${MYSQL_PASSWORD}
     command: python manage.py runserver 0.0.0.0:8000
     ports:
-      - 28000:8000
+      - ${APP_PORT_EXTERNAL}:${APP_PORT}
+    volumes:
+      - aistock_prod_web:/app/web
     depends_on: 
       - db
   db:
@@ -25,3 +27,5 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     ports:
       - ${MYSQL_PORT_EXTERNAL}:${MYSQL_PORT}
+volumes:
+  aistock_prod_web:

@@ -1,28 +1,52 @@
-# 자주 사용되는 명령어
-## Docker
-### 이 프로젝트에서 Docker 생성하기 
-개발용(dev)
+# 이 프로젝트에서 Docker 생성하기
+## Development 모드
+
+준비 과정
+* config/settings/local.py 생성 및 설정
+* .docker-config/.dev.env 생성 및 설정
+
+주의 사항
+* 작업중인 폴더를 마운트할 것이므로, 향후 경로가 변경되지 않아야 함. (아주 적절한 위치에 코드를 위치시키고 작업할 것을 권장)
+
+
+docker-compose 생성 및 실행(dev)
 ```console
 docker-compose --env-file=./.docker-config/.dev.env up --build --force-recreate -d
 ```
 
-프로덕션 (prod)
+
+
+## Production 모드
+준비 과정
+* config/settings/prod.py 생성 및 설정
+* .docker-config/.prod.env 생성 및 설정
+* .docker-config/id_rsa 생성. (ssh-keygen 으로 생성된 id_rsa 또는 갖고있던 id_rsa 를 위치시켜야 한다)(비공개 git 저장소를 이용하기 위함)
+
+주의 사항
+* 작업중인 폴더를 마운트할 것이므로, 향후 경로가 변경되지 않아야 함. (아주 적절한 위치에 코드를 위치시키고 작업할 것을 권장)
+
+
+docker-compose 생성 및 실행(prod)
 ```console
 docker-compose --env-file=./.docker-config/.prod.env up --build --force-recreate -d
 ```
 
 
 
+# 자주 사용되는 명령어
+## Docker
 ### Dockerfile 로 Docker 생성
 구문 (Dockerfile -> Docker image 생성)
 ```console
 docker build -t (이미지이름) (경로. 보통 '.'으로 현재폴더를 가리킴)
 ```
 
+
 예시)
 ```console
 docker build -t aistoc-web-dev001 .
 ```
+
 
 예시2) Dockerfile 명을 지정해줘야 할 때
 ```console
@@ -31,26 +55,43 @@ docker build -f Dockerfile.dev -t aistoc-web-dev001 .
 
 
 
-### compose 명령어
+### docker-compose 명령어
 실행
 ```console
 docker-compose up
 ```
+
 
 정지
 ```console
 docker-compose down
 ```
 
+
 이미지 빌드와 동시에 실행
 ```console
 docker-compose up --build
 ```
 
+
 이미지 빌드와 동시에 실행 (+백그라운드 실행)
 ```console
 docker-compose up --build -d
 ```
+설명
+* up : docker-compose로 생성된 이미지들을 컨테이너로 실행한다는 의미
+* --build : 빌드를 해주면서 실행하겠다는 의미
+* -d : 백그라운드로 실행한다는 의미
+* 여기서 env 로는 기본값으로 `.env`파일이 있다면 사용하게 된다. 없으면 사용하지 않는다.
+* 여기서 yml 파일은 기본값으로 `docker-compose.yml`파일을 사용하게 된다.
+
+
+```console
+docker-compose --env-file=(env파일 경로) up --build --force-recreate -d
+```
+설명
+* --env-file : env파일을 수동으로 지정하겠다는 의미
+* --force-recreate : 기존에 같은 명칭으로 생성한 docker이미지가 있다면 지우고 다시 만들겠다는 의미
 
 
 

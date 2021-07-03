@@ -12,22 +12,23 @@ WORKDIR /mysqlclient-2.0.3
 RUN python setup.py bdist_wheel
 
 
-# slim-buster 는 우분투의 경량화 버전을 말함
+# slim-buster 는 데비안의 경량화 버전을 말함
 FROM python:3.9.5-slim-buster
-WORKDIR /app/web
+WORKDIR /app
 
 # requirements.txt 를 먼저 복사함. 
-COPY ../requirements.txt ..
+COPY requirements.txt .
 
 # mysqlclient 설치를 위해 필요한 부분들 apt-get install
 RUN apt-get update && apt-get install -y default-libmysqlclient-dev && rm -rf /var/lib/apt/lists/*
-COPY --from=builder /mysqlclient-2.0.3/dist/mysqlclient-2.0.3-cp39-cp39-linux_x86_64.whl ..
-RUN pip install ../mysqlclient-2.0.3-cp39-cp39-linux_x86_64.whl
+COPY --from=builder /mysqlclient-2.0.3/dist/mysqlclient-2.0.3-cp39-cp39-linux_x86_64.whl .
+RUN pip install mysqlclient-2.0.3-cp39-cp39-linux_x86_64.whl
 # 위의 방식을 사용하지 않고 그냥 바로 설치하고 싶다면 다음의 명령어를 수행하면 mysqlclient를 설치할 수 있다. (대신 용량이 커짐)
 # RUN apt-get update && apt-get install -y python3-dev default-libmysqlclient-dev build-essential
 
 # pip 의존성 설치
-RUN pip install -r ../requirements.txt
+RUN pip install -r requirements.txt
 
 # 소스 코드 복사
-# COPY ../ .
+# COPY . ./app
+WORKDIR /app/web
