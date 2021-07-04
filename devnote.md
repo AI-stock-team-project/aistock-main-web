@@ -15,6 +15,10 @@ docker-compose --env-file=./.docker-config/.dev.env up --build --force-recreate 
 ```
 
 
+참고
+* 'mysql'만 도커로 생성하고 싶을 때에는 다음 커맨드 사용
+    `docker run --env-file=./.docker-config/.dev.env --name mysql-test -p 13306:3306 -d mysql:5.7`
+
 
 ## Production 모드
 준비 과정
@@ -156,7 +160,7 @@ pip list --outdated
 ## URL 구성
 * /admin/ : 사이트 관리자
 * /portfolios/ : 포트폴리오 기능
-  * /portfolios/{portfolioId}/
+    * /portfolios/{portfolioId}/
 * /stocks/{stockId}
 * /equities/{종목명} : (예) /equities/samsung~
 
@@ -181,7 +185,7 @@ Admin(관리자 기능)
 * 포트폴리오 추천 기준 선택
 * 포트폴리오 목록 관리 : 포트폴리오 추가/삭제/이름 변경
 * 포트폴리오의 종목 관리
-  * 종목 추가/삭제
+    * 종목 추가/삭제
 
 주식 종목 조회
 * 주식 종목 전체 보기
