@@ -18,6 +18,7 @@ services:
       - aistock_prod_web:/app/web
     depends_on: 
       - db
+    restart: always
   db:
     image: mysql:${MYSQL_IMAGE_VER}
     environment: 
@@ -27,5 +28,6 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     ports:
       - ${MYSQL_PORT_EXTERNAL}:${MYSQL_PORT}
+    restart: always
 volumes:
   aistock_prod_web:
