@@ -25,10 +25,12 @@ config/settings/*
 !config/settings/base.py
 !config/settings/generate_secretkey.py
 !config/settings/local.example.py
+!config/settings/prod.example.py
 
 # docker envs
 .docker-config/*
-!.dev.env.example
+!.docker-config/.dev.env.example
+!.docker-config/.prod.env.example
 !Dockerfile.dev
 !Dockerfile.prod
 
