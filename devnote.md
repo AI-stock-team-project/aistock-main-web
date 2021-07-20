@@ -158,12 +158,18 @@ pip list --outdated
 
 
 ## URL 구성
-* /admin/ : 사이트 관리자
+기능
 * /portfolios/ : 포트폴리오 기능
     * /portfolios/{portfolioId}/
 * /stocks/{stockId}
 * /equities/{종목명} : (예) /equities/samsung~
 
+
+기본
+  * /logout : 로그아웃 
+  * /login : 로그인
+  * /signup : 가입
+  * /admin/ : 사이트 최고 관리자
 
 
 
