@@ -6,12 +6,15 @@ services:
       dockerfile: ${APP_DOCKFILE}
     environment: 
       - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+      - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
+      - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
+      - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
       - DB_HOST=db
       - DB_PORT=${MYSQL_PORT}
       - DB_DATABASE=${MYSQL_DATABASE}
       - DB_USER=${MYSQL_USER}
       - DB_PASSWORD=${MYSQL_PASSWORD}
-    command: python manage.py runserver 0.0.0.0:8000
+    command: /bin/bash ./docker-entrypoint.sh
     ports:
       - ${APP_PORT_EXTERNAL}:${APP_PORT}
     volumes:

@@ -31,3 +31,7 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     ports:
       - ${MYSQL_PORT_EXTERNAL}:${MYSQL_PORT}
+    volumes:
+      - aistock_dev_db:/var/lib/mysql
+volumes:
+  aistock_dev_db:
