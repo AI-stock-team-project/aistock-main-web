@@ -14,13 +14,14 @@ services:
       - DB_DATABASE=${MYSQL_DATABASE}
       - DB_USER=${MYSQL_USER}
       - DB_PASSWORD=${MYSQL_PASSWORD}
-    command: /bin/bash ./docker-entrypoint.sh
     ports:
       - ${APP_PORT_EXTERNAL}:${APP_PORT}
     volumes:
       - ./:/app/web
-    depends_on: 
+    depends_on:
       - db
+    # command: python manage.py runserver 0.0.0.0:8000
+    entrypoint: /bin/bash ./docker-entrypoint.sh
   db:
     image: mysql:${MYSQL_IMAGE_VER}
     environment: 

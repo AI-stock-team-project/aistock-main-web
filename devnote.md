@@ -18,6 +18,7 @@ docker-compose --env-file=./.docker-config/.dev.env up --build --force-recreate 
 참고
 * 'mysql'만 도커로 생성하고 싶을 때에는 다음 커맨드 사용
     `docker run --env-file=./.docker-config/.dev.env --name aistock-mysql-only -p 33306:3306 -d mysql:5.7`
+    `docker run --env-file=./.docker-config/.dev.env --name aistock-mysql-only -p 33306:3306 -d mysql:8.0`
 
 
 ## Production 모드
