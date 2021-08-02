@@ -1,9 +1,15 @@
 # 이 프로젝트에서 Docker 생성하기
-## Development 모드
+용어 참고(https://en.wikipedia.org/wiki/Deployment_environment)
+- local : 개발자 환경, 로컬 환경에서 구동할 때
+- dev : 개발 서버, 개발자들끼리 공통된 작업을 테스트하는 서버에서 구동할 때
+- prod (production) : 실 서버, 실제 서버에서 구동할 때
+
+
+## local 모드
 
 준비 과정
 * config/settings/local.py 생성 및 설정
-* .docker-config/.dev.env 생성 및 설정
+* _docker/.local.env 생성 및 설정
 
 주의 사항
 * 작업중인 폴더를 마운트할 것이므로, 향후 경로가 변경되지 않아야 함. (아주 적절한 위치에 코드를 위치시키고 작업할 것을 권장)
@@ -17,11 +23,10 @@ docker-compose --env-file=_docker/.local.env up --build --force-recreate -d
 
 참고
 * 'mysql'만 도커로 생성하고 싶을 때에는 다음 커맨드 사용
-    `docker run --env-file=_docker/.local.env --name aistock-mysql-only -p 33306:3306 -d mysql:5.7`
     `docker run --env-file=./.docker-config/.dev.env --name aistock-mysql-only -p 33306:3306 -d mysql:8.0`
 
 
-## Production 모드
+## dev 모드 (개발서버 모드)
 준비 과정
 * config/settings/prod.py 생성 및 설정
 * .docker-config/.prod.env 생성 및 설정
@@ -33,10 +38,18 @@ docker-compose --env-file=_docker/.local.env up --build --force-recreate -d
 
 docker-compose 생성 및 실행(prod)
 ```console
-docker-compose --env-file=./.docker-config/.prod.env up --build --force-recreate -d
+docker-compose --env-file=_docker/.dev.env up --build --force-recreate -d
 ```
 
+docker-compose 중지
+```console
+docker-compose --env-file=_docker/.dev.env stop
+```
 
+docker-compose 중지된 것을 시작
+```console
+docker-compose --env-file=_docker/.dev.env start
+```
 
 # docker 없이 작업할 때에
 1. MySQL 설치 및 데이터베이스 생성 (mysql에서 데이터베이스를 생성한다)
