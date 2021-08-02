@@ -36,6 +36,9 @@ _docker/*
 !_docker/.prod.env.example
 !_docker/Dockerfile.local
 !_docker/Dockerfile.prod
+!_docker/docker-compose.yml
+!_docker/docker-compose.prod.yml
+
 
 # others
 *.sqlite3

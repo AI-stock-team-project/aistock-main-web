@@ -1,8 +1,9 @@
+# 개발 환경, 로컬 환경에서의 Docker [docker-compose]
 version: "3.9"
 services: 
   webapp:
     build:
-      context: .
+      context: ..
       dockerfile: ${APP_DOCKFILE}
     environment: 
       - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
@@ -17,7 +18,7 @@ services:
     ports:
       - ${APP_PORT_EXTERNAL}:${APP_PORT}
     volumes:
-      - ./:/app/web
+      - ../:/app/web
     depends_on:
       - db
     # command: python manage.py runserver 0.0.0.0:8000
@@ -33,6 +34,6 @@ services:
     ports:
       - ${MYSQL_PORT_EXTERNAL}:${MYSQL_PORT}
     volumes:
-      - aistock_dev_db:/var/lib/mysql
+      - maindb:/var/lib/mysql
 volumes:
-  aistock_dev_db:
+  maindb:
