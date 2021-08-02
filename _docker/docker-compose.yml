@@ -1,4 +1,4 @@
-# 개발 환경, 로컬 환경에서의 Docker [docker-compose]
+# 로컬 환경, 개발 PC에서의 Docker [docker-compose]
 version: "3.9"
 services: 
   webapp:
@@ -17,10 +17,10 @@ services:
       - DB_PASSWORD=${MYSQL_PASSWORD}
     ports:
       - ${APP_PORT_EXTERNAL}:${APP_PORT}
-    volumes:
-      - ../:/app/web
     depends_on:
       - db
+    volumes:
+      - ../:/app/web
     # command: python manage.py runserver 0.0.0.0:8000
     entrypoint: /bin/bash ./docker-entrypoint.sh
   db:

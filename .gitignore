@@ -33,10 +33,13 @@ config/settings/*
 # docker envs
 _docker/*
 !_docker/.local.env.example
+!_docker/.dev.env.example
 !_docker/.prod.env.example
-!_docker/Dockerfile.local
-!_docker/Dockerfile.prod
+!_docker/local.Dockerfile
+!_docker/dev.Dockerfile
+!_docker/prod.Dockerfile
 !_docker/docker-compose.yml
+!_docker/docker-compose.dev.yml
 !_docker/docker-compose.prod.yml
 
 

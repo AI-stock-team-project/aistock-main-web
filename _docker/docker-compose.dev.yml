@@ -1,8 +1,9 @@
+# 개발 서버 환경에서의 Docker [docker-compose]
 version: "3.9"
 services: 
   webapp:
     build:
-      context: .
+      context: ..
       dockerfile: ${APP_DOCKFILE}
     environment: 
       - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
@@ -14,14 +15,15 @@ services:
       - DB_DATABASE=${MYSQL_DATABASE}
       - DB_USER=${MYSQL_USER}
       - DB_PASSWORD=${MYSQL_PASSWORD}
-    command: /bin/bash ./docker-entrypoint.sh
     ports:
       - ${APP_PORT_EXTERNAL}:${APP_PORT}
-    volumes:
-      - aistock_prod_web:/app/web
-    depends_on: 
+    depends_on:
       - db
+    volumes:
+      - webapp_data:/app/web
     restart: always
+    # command: /bin/bash ./docker-entrypoint.sh
+    command: python manage.py runserver 0.0.0.0:8000
   db:
     image: mysql:${MYSQL_IMAGE_VER}
     environment: 
@@ -29,8 +31,12 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_ai_ci
     ports:
       - ${MYSQL_PORT_EXTERNAL}:${MYSQL_PORT}
+    volumes:
+      - maindb:/var/lib/mysql
     restart: always
 volumes:
-  aistock_prod_web:
+  maindb:
+  webapp_data:

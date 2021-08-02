@@ -1,6 +1,6 @@
 """
-로컬 설정 파일.
-base.py 의 내용을 그대로 이어받고, local 에서만 변경할 설정들을 다룬다.
+[Local] 로컬 환경 설정 파일.
+base.py 의 내용을 그대로 이어받고, 변경할 설정들만 다룬다.
 """
 # noinspection PyUnresolvedReferences
 from .base import *
