@@ -11,13 +11,13 @@
 
 docker-compose 생성 및 실행(dev)
 ```console
-docker-compose --env-file=./.docker-config/.dev.env up --build --force-recreate -d
+docker-compose --env-file=_docker/.local.env up --build --force-recreate -d
 ```
 
 
 참고
 * 'mysql'만 도커로 생성하고 싶을 때에는 다음 커맨드 사용
-    `docker run --env-file=./.docker-config/.dev.env --name aistock-mysql-only -p 33306:3306 -d mysql:5.7`
+    `docker run --env-file=_docker/.local.env --name aistock-mysql-only -p 33306:3306 -d mysql:5.7`
     `docker run --env-file=./.docker-config/.dev.env --name aistock-mysql-only -p 33306:3306 -d mysql:8.0`
 
 
@@ -36,6 +36,35 @@ docker-compose 생성 및 실행(prod)
 docker-compose --env-file=./.docker-config/.prod.env up --build --force-recreate -d
 ```
 
+
+
+# docker 없이 작업할 때에
+1. MySQL 설치 및 데이터베이스 생성 (mysql에서 데이터베이스를 생성한다)
+    - 데이터베이스를 생성해주고, 유저를 생성해주고, 유저에게 데이터베이스에 대한 권한을 설정해준다.
+2. 장고 설정
+    - /config/settings/local.py 를 만들어준다.
+    - SECRET_KEY 및 DATABASE 설정을 해준다.
+        - `python config/settings/generate_secretkey.py`을 통해서 SECRET_KEY를 생성할 수 있음
+3. 파이썬 가상환경 셋팅
+    1. pycharm의 경우) 알아서 셋팅이 된다. requirements 를 읽어오면서 셋팅을 한다. 'Creating Virtual Environment'창이 뜨면서 확인을 누르면 알아서 됨.
+    2. vscode의 경우) `python -m venv venv`을 통해서 venv폴더를 생성 (주의: powershell 터미널은 안 되고, 일반 터미널로 해야함)
+4. 패키지 설치
+    1. pycharm의 경우) 알아서 됨.
+    2. vscode의 경우) 
+        ```console
+        mysite
+        pip install -r requirements.txt
+        ```
+5. 장고 웹서버 실행하기
+    ```console
+    mysite
+    python manage.py runserver
+    ```
+
+참고
+* `mysite`는 파이썬 가상환경을 셋팅해주는 스크립트이다.
+* 윈도우 환경에서는 파이썬 64비트를 권장함
+  
 
 
 # 자주 사용되는 명령어
@@ -61,13 +90,13 @@ docker build -f Dockerfile.dev -t aistoc-web-dev001 .
 
 
 ### docker-compose 명령어
-실행
+실행 및 컨테이너 생성
 ```console
 docker-compose up
 ```
 
 
-정지
+정지 및 컨테이너 삭제
 ```console
 docker-compose down
 ```
