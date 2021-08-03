@@ -22,7 +22,7 @@ ADD id_rsa /root/.ssh/id_rsa
 RUN chmod 600 /root/.ssh/id_rsa
 
 # git clone and pip install
-RUN git clone git@github.com:AI-stock-team-project/aistock-main-web.git web
+RUN git clone -b develop --single-branch git@github.com:AI-stock-team-project/aistock-main-web.git web
 
 # cron 스케쥴링 추가
 # COPY .docker-config/production_cron_git_pull.sh ..
