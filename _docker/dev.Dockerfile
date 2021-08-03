@@ -32,5 +32,6 @@ WORKDIR /app/web
 COPY ./config/settings/dev.py ./config/settings/dev.py
 
 # 장고 관련
-RUN /bin/sh -c python manage.py migrate
-RUN /bin/sh -c python manage.py createsuperuser --noinput
+# RUN /bin/sh -c python manage.py migrate
+# RUN /bin/sh -c python manage.py createsuperuser --noinput
+# ENTRYPOINT [ "/bin/sh", "-c", "python manage.py migrate && python manage.py createsuperuser --noinput" ]
