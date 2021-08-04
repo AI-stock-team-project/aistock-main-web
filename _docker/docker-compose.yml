@@ -1,24 +1,28 @@
+# 로컬 환경, 개발 PC에서의 Docker [docker-compose]
 version: "3.9"
 services: 
   webapp:
     build:
-      context: .
+      context: ..
       dockerfile: ${APP_DOCKFILE}
     environment: 
       - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+      - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
+      - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
+      - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
       - DB_HOST=db
       - DB_PORT=${MYSQL_PORT}
       - DB_DATABASE=${MYSQL_DATABASE}
       - DB_USER=${MYSQL_USER}
       - DB_PASSWORD=${MYSQL_PASSWORD}
-    command: python manage.py runserver 0.0.0.0:8000
     ports:
       - ${APP_PORT_EXTERNAL}:${APP_PORT}
-    volumes:
-      - aistock_prod_web:/app/web
-    depends_on: 
+    depends_on:
       - db
-    restart: always
+    volumes:
+      - ../:/app/web
+    # command: python manage.py runserver 0.0.0.0:8000
+    entrypoint: /bin/bash ./docker-entrypoint.sh
   db:
     image: mysql:${MYSQL_IMAGE_VER}
     environment: 
@@ -26,8 +30,10 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_ai_ci
     ports:
       - ${MYSQL_PORT_EXTERNAL}:${MYSQL_PORT}
-    restart: always
+    volumes:
+      - maindb:/var/lib/mysql
 volumes:
-  aistock_prod_web:
+  maindb:

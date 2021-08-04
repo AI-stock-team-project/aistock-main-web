@@ -8,7 +8,7 @@ Thumbs.db
 .idea/
 *.code-workspace
 
-# Django
+# python cache
 __pycache__/
 
 # Python virtual environments
@@ -20,17 +20,28 @@ ENV/
 env.bak/
 venv.bak/
 
+# keys
+id_rsa
+
 # settings
 config/settings/*
 !config/settings/base.py
 !config/settings/generate_secretkey.py
 !config/settings/local.example.py
+!config/settings/prod.example.py
 
 # docker envs
-.docker-config/*
-!.dev.env.example
-!Dockerfile.dev
-!Dockerfile.prod
+_docker/*
+!_docker/.local.env.example
+!_docker/.dev.env.example
+!_docker/.prod.env.example
+!_docker/local.Dockerfile
+!_docker/dev.Dockerfile
+!_docker/prod.Dockerfile
+!_docker/docker-compose.yml
+!_docker/docker-compose.dev.yml
+!_docker/docker-compose.prod.yml
+
 
 # others
 *.sqlite3

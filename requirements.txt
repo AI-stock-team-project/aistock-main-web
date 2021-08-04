@@ -1,5 +1,7 @@
-asgiref==3.3.4
-Django==3.2.4
-mysqlclient==2.0.3
+asgiref==3.4.1
+Django==3.2.5
+mysql-connector-python==8.0.26
+protobuf==3.17.3
 pytz==2021.1
+six==1.16.0
 sqlparse==0.4.1

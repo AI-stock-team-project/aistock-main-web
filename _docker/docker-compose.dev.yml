@@ -1,0 +1,41 @@
+# 개발 서버 환경에서의 Docker [docker-compose]
+version: "3.9"
+services: 
+  webapp:
+    build:
+      context: ..
+      dockerfile: ${APP_DOCKFILE}
+    environment: 
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+      - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
+      - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
+      - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
+      - DB_HOST=db
+      - DB_PORT=${MYSQL_PORT}
+      - DB_DATABASE=${MYSQL_DATABASE}
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - ${APP_PORT_EXTERNAL}:${APP_PORT}
+    depends_on:
+      - db
+    #volumes:
+    #  - webapp_data:/app/web
+    restart: always
+    command: /bin/bash ./docker-entrypoint.sh
+    # command: python manage.py runserver 0.0.0.0:8000
+  db:
+    image: mysql:${MYSQL_IMAGE_VER}
+    environment: 
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_ai_ci
+    ports:
+      - ${MYSQL_PORT_EXTERNAL}:${MYSQL_PORT}
+    volumes:
+      - maindb:/var/lib/mysql
+    restart: always
+volumes:
+  maindb:
