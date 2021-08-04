@@ -20,6 +20,15 @@ docker-compose 생성 및 실행(dev)
 docker-compose --env-file=_docker/.local.env up --build --force-recreate -d
 ```
 
+docker-compose 중지
+```console
+docker-compose --env-file=_docker/.local.env stop
+```
+
+docker-compose 중지된 것을 시작
+```console
+docker-compose --env-file=_docker/.local.env start
+```
 
 참고
 * 'mysql'만 도커로 생성하고 싶을 때에는 다음 커맨드 사용
