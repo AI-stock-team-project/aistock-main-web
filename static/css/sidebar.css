@@ -1,0 +1,33 @@
+#wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100vh;
+    height: -webkit-fill-available;
+    max-height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.sidebar-wrap {
+    /*width: 16rem;*/
+    width: 250px;
+    min-height: 100vh;
+}
+.sidebar{
+    width: 250px;
+    min-height: 100vh;
+}
+@media (min-width: 768px){
+    .sidebar {
+        width: 250px;
+        /*width: 14rem!important;*/
+    }
+}
+#content-wrapper {
+    flex: 1 1 auto;
+    background-color: #f8f9fc;
+    overflow-x: hidden;
+}
+#wrapper #content-wrapper #content {
+    flex: 1 0 auto;
+    padding: 1rem;
+}

@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def index(request):
+    """
+    종목 조회
+    """
+    return render(request, 'stock/list.html')
