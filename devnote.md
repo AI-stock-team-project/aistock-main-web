@@ -6,13 +6,17 @@
 
 
 ## local 모드
+Local 모드
+* 개발자 PC 환경, 로컬 환경에서 구동할 때.
+* 특징
+    * 코드를 마운트해서, 코드가 변경되는 사항이 반영되도록 환경을 구성함.
+* 주의 사항
+    * 작업중인 폴더를 마운트할 것이므로, 향후 경로가 변경되지 않아야 함. (아주 적절한 위치에 코드를 위치시키고 작업할 것을 권장)
+
 
 준비 과정
 * config/settings/local.py 생성 및 설정
 * _docker/.local.env 생성 및 설정
-
-주의 사항
-* 작업중인 폴더를 마운트할 것이므로, 향후 경로가 변경되지 않아야 함. (아주 적절한 위치에 코드를 위치시키고 작업할 것을 권장)
 
 
 docker-compose 생성 및 실행(dev)
@@ -30,19 +34,19 @@ docker-compose 중지된 것을 시작
 docker-compose --env-file=_docker/.local.env start
 ```
 
-참고
-* 'mysql'만 도커로 생성하고 싶을 때에는 다음 커맨드 사용
-    `docker run --env-file=./.docker-config/.dev.env --name aistock-mysql-only -p 33306:3306 -d mysql:8.0`
-
 
 ## dev 모드 (개발서버 모드)
-준비 과정
-* config/settings/prod.py 생성 및 설정
-* .docker-config/.prod.env 생성 및 설정
-* .docker-config/id_rsa 생성. (ssh-keygen 으로 생성된 id_rsa 또는 갖고있던 id_rsa 를 위치시켜야 한다)(비공개 git 저장소를 이용하기 위함)
+Develop Server 모드
+* 개발서버 등에서 구동할 때
+* 특징
+    * git 으로 코드를 내려받아서 셋팅하도록 함.
 
-주의 사항
-* 작업중인 폴더를 마운트할 것이므로, 향후 경로가 변경되지 않아야 함. (아주 적절한 위치에 코드를 위치시키고 작업할 것을 권장)
+
+준비 과정
+* config/settings/dev.py 생성 및 설정
+* _docker/.dev.env 생성 및 설정
+* id_rsa 생성. (ssh-keygen 으로 생성된 id_rsa 또는 갖고있던 id_rsa 를 위치시켜야 한다)(비공개 git 저장소를 이용하기 위함)
+
 
 
 docker-compose 생성 및 실행(prod)
@@ -87,6 +91,10 @@ docker-compose --env-file=_docker/.dev.env start
 * `mysite`는 파이썬 가상환경을 셋팅해주는 스크립트이다.
 * 윈도우 환경에서는 파이썬 64비트를 권장함
   
+
+참고
+* 'mysql'만 도커로 생성하고 싶을 때에는 다음 커맨드 사용
+    `docker run --env-file=_docker/.local.env --name aistock-local-mysqlonly -p 33306:3306 -d mysql:8.0`
 
 
 # 자주 사용되는 명령어
