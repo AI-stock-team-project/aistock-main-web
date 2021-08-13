@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y cron git && apt-get autoremove -y \
 RUN mkdir /root/.ssh/ \ 
   && touch /root/.ssh/known_hosts \
   && ssh-keyscan github.com >> /root/.ssh/known_hosts
-ADD id_rsa /root/.ssh/id_rsa
+COPY id_rsa /root/.ssh/id_rsa
 RUN chmod 600 /root/.ssh/id_rsa
 
 # git clone and pip install
