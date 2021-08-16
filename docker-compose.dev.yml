@@ -1,9 +1,9 @@
-# 로컬 환경, 개발 PC에서의 Docker [docker-compose]
+# 개발 서버 환경에서의 Docker [docker-compose]
 version: "3.9"
 services: 
   webapp:
     build:
-      context: ..
+      context: .
       dockerfile: ${APP_DOCKFILE}
     environment: 
       - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
@@ -19,8 +19,9 @@ services:
       - ${APP_PORT_EXTERNAL}:${APP_PORT}
     depends_on:
       - db
-    volumes:
-      - ../:/app/web
+    #volumes:
+    #  - webapp_data:/app/web
+    restart: always
     # command: python manage.py runserver 0.0.0.0:8000
     entrypoint: /bin/bash ./docker-entrypoint.sh
   db:
@@ -35,5 +36,6 @@ services:
       - ${MYSQL_PORT_EXTERNAL}:${MYSQL_PORT}
     volumes:
       - maindb:/var/lib/mysql
+    restart: always
 volumes:
   maindb:
