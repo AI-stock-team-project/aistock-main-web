@@ -211,6 +211,16 @@ python manage.py runserver
 python manage.py migrate
 ```
 
+migrations 생성할 때 (전체)
+```console
+python manage.py makemigrations 
+```
+
+migrations 생성할 때 (특정)
+```console
+python manage.py makemigrations <app-name>
+```
+
 
 ### super user 추가
 ```console

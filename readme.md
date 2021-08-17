@@ -11,8 +11,10 @@
 
 
 # 설치된 패키지
-* `pip install django`
-* `pip install mysql-connector-python`
+* `pip install django` : sqlparse, pytz, asgiref, django
+* `pip install mysql-connector-python` : six, protobuf, mysql-connector-python
+* `pip install django-settings-export` : django-settings-export
+* `pip install factory-boy` : text-unidecode, python-dateutil, Faker, factory-boy
 
 `requirements.txt` 참고
 
