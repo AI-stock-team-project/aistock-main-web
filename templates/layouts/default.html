@@ -71,6 +71,7 @@
                 LSTM 주가예측
               </a>
             </li>
+            <!--
             <li>
               <a href="/news/" class="nav-link text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
@@ -79,6 +80,7 @@
                 최신 연관 뉴스
               </a>
             </li>
+            -->
             <li>
               <a href="/board/" class="nav-link text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
@@ -100,14 +102,15 @@
               <li><a class="dropdown-item" href="#">Settings</a></li>
               <li><a class="dropdown-item" href="#">Profile</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Sign out</a></li>
+              <li><a class="dropdown-item" href="{{ settings.CUSTOM.LOGOUT_URL }}">Sign out</a></li>
             </ul>
           </div>
         </div>
-      </div><!-- .sidebar-wrap -->
+      </div><!-- //.sidebar-wrap -->
       <div id="content-wrapper" class="d-flex flex-column">
         <nav class="navbar navbar-dark bg-dark">
           <div class="container flex-row-reverse">
+            {% if user.is_authenticated %}
             <div class="dropdown text-end">
               <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1"
                   data-bs-toggle="dropdown" aria-expanded="false">
@@ -120,9 +123,14 @@
                   <li>
                       <hr class="dropdown-divider">
                   </li>
-                  <li><a class="dropdown-item" href="/logout">Sign out</a></li>
+                  <li><a class="dropdown-item" href="{{ settings.CUSTOM.LOGOUT_URL }}">Sign out</a></li>
               </ul>
             </div>
+            {% else %}
+            <div class="text-end">
+              <a href="{{ settings.CUSTOM.LOGIN_URL }}" class="d-block link-light text-decoration-none">Sign in</a>
+            </div>
+            {% endif %}
           </div>
         </nav>
         <div id="content">

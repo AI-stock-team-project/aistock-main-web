@@ -1,5 +1,6 @@
 asgiref==3.4.1
-Django==3.2.5
+Django==3.2.6
+django-settings-export==1.2.1
 mysql-connector-python==8.0.26
 protobuf==3.17.3
 pytz==2021.1
