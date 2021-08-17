@@ -26,6 +26,10 @@ urlpatterns = [
     path('', main.views.index),
     path('test/', main.views.test),
     path('stock/', stock.views.index),
+    path('mypage/', mypage.views.index),
+    # path('lstm/', mypage.views.index),
+    # path('news/', mypage.views.index),
+    # path('board/', mypage.views.index),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
