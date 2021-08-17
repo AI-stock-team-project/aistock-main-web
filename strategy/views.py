@@ -3,6 +3,6 @@ from django.shortcuts import render
 # Create your views here.
 def index(request):
     """
-    Board
+    전략별
     """
-    return render(request, 'board/index.html')
+    return render(request, 'strategy/index.html')

@@ -21,15 +21,19 @@ import mypage.views
 import lstm.views
 import news.views
 import board.views
+import portfolio.views
+import strategy.views
 
 urlpatterns = [
     path('', main.views.index),
     path('test/', main.views.test),
     path('stock/', stock.views.index),
     path('mypage/', mypage.views.index),
-    # path('lstm/', mypage.views.index),
+    path('portfolio/', portfolio.views.index),
+    path('lstm/', lstm.views.index),
+    path('strategy/', strategy.views.index),
     # path('news/', mypage.views.index),
-    # path('board/', mypage.views.index),
+    path('board/', board.views.index),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
