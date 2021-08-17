@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import path
 import main.views
 import stock.views
+import mypage.views
+import lstm.views
+import news.views
+import board.views
 
 urlpatterns = [
     path('', main.views.index),
