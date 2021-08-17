@@ -102,8 +102,8 @@ docker-compose --env-file=_docker/.dev.env start
 ## sqlite 로 이용하기 (slim 버전)
 환경 셋팅하는 순서
 1. 장고 설정하기
-    1. `/config/settings/local-slim.example.py`을 복사해서 `/config/settings/local-slim.py`를 새로 만든다.
-    2. 설정파일(`local-slim.py`)에서 입력해줘야 할 것들
+    1. `/config/settings/slim.example.py`을 복사해서 `/config/settings/slim.py`를 새로 만든다.
+    2. 설정파일(`slim.py`)에서 입력해줘야 할 것들
         * `SECRET_KEY` 설정 : `python config/settings/generate_secretkey.py` 커맨드를 실행하면 키를 랜덤하게 생성해주는데, 생성된 키 값을 복사해서 넣어주도록 한다.
 2. 파이썬 패키지 셋팅
     1. pycharm의 경우) requirements.txt 를 로드해서 알아서 셋팅이 된다. 잘 안 되면 몇 번 껐다가 pycharm을 켜다보면 인식이 되서 패키지를 설치한다.
