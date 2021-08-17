@@ -17,9 +17,10 @@ Local 모드
 준비 과정
 * config/settings/local.py 생성 및 설정
 * _docker/.local.env 생성 및 설정
+* 자세한 것은 `readme.md`파일을 참조할 것.
 
 
-docker-compose 생성 및 실행(dev)
+docker-compose 생성 및 실행
 ```console
 docker-compose --env-file=_docker/.local.env up --build --force-recreate -d
 ```
@@ -64,7 +65,8 @@ docker-compose 중지된 것을 시작
 docker-compose --env-file=_docker/.dev.env start
 ```
 
-# docker 없이 작업할 때에
+# docker 없이 셋팅
+## MySQL이 설치되어 있을 때
 1. MySQL 설치 및 데이터베이스 생성 (mysql에서 데이터베이스를 생성한다)
     - 데이터베이스를 생성해주고, 유저를 생성해주고, 유저에게 데이터베이스에 대한 권한을 설정해준다.
 2. 장고 설정
@@ -97,7 +99,44 @@ docker-compose --env-file=_docker/.dev.env start
     `docker run --env-file=_docker/.local.env --name aistock-local-mysqlonly -p 33306:3306 -d mysql:8.0`
 
 
+## sqlite 로 이용하기 (slim 버전)
+환경 셋팅하는 순서
+1. 장고 설정하기
+    1. `/config/settings/local-slim.example.py`을 복사해서 `/config/settings/local-slim.py`를 새로 만든다.
+    2. 설정파일(`local-slim.py`)에서 입력해줘야 할 것들
+        * `SECRET_KEY` 설정 : `python config/settings/generate_secretkey.py` 커맨드를 실행하면 키를 랜덤하게 생성해주는데, 생성된 키 값을 복사해서 넣어주도록 한다.
+2. 파이썬 패키지 셋팅
+    1. pycharm의 경우) requirements.txt 를 로드해서 알아서 셋팅이 된다. 잘 안 되면 몇 번 껐다가 pycharm을 켜다보면 인식이 되서 패키지를 설치한다.
+    2. vscode의 경우) 
+        1. `python -m venv venv`을 통해서 venv폴더를 생성 (주의: powershell 터미널은 안 되고, 일반 cmd 터미널로 해야함)
+        2. 
+            ```console
+            mysite-slim
+            pip install -r requirements.txt
+            ```
+3. 장고 웹서버 실행하기
+    ```console
+    mysite-slim
+    python manage.py runserver
+    ```
+
+
 # 자주 사용되는 명령어
+## git
+### git clone
+git clone 명령어
+```console
+git clone git@github.com:AI-stock-team-project/aistock-main-web.git
+```
+
+
+develop 브랜치로 clone하기
+```console
+git clone -b develop git@github.com:AI-stock-team-project/aistock-main-web.git
+```
+
+
+
 ## Docker
 ### Dockerfile 로 Docker 생성
 구문 (Dockerfile -> Docker image 생성)
@@ -161,10 +200,10 @@ docker-compose --env-file=(env파일 경로) up --build --force-recreate -d
 
 ## django
 ### django 실행
-
 ```console
 python manage.py runserver
 ```
+
 
 ### migrate 
 테이블을 데이터베이스에 적용시킬 때
@@ -172,6 +211,17 @@ python manage.py runserver
 python manage.py migrate
 ```
 
+
+### super user 추가
+```console
+python manage.py createsuperuser
+```
+
+
+### 앱 추가
+```console
+python manage.py startapp [앱이름]
+```
 
 
 ## 파이썬 패키지 관리
@@ -204,7 +254,10 @@ pip list
 pip list --outdated
 ```
 
-
+패키지 업데이트
+```console
+pip install --upgrade 패키지명
+```
 
 # 구성
 ## 폴더 구성
@@ -218,6 +271,27 @@ pip list --outdated
 
 
 ## URL 구성
+개요
+* 메인페이지 : /
+* 마이페이지 : /mypage/
+* 종목 조회 : /stock/
+* 포트폴리오 : /portfolio/
+* LSTM 주가예측 : /lstm/
+* 최신 연관 뉴스 : /news/
+* 토론방 : /board/
+
+
+기본
+* /admin/ : 사이트 최고 관리자
+* /accounts/logout : 로그아웃 
+* /accounts/login : 로그인
+* /signup : 가입
+
+
+목록
+/mypage/pinned : 관심종목
+
+
 기능
 * /portfolios/ : 포트폴리오 기능
     * /portfolios/{portfolioId}/
@@ -225,11 +299,6 @@ pip list --outdated
 * /equities/{종목명} : (예) /equities/samsung~
 
 
-기본
-  * /logout : 로그아웃 
-  * /login : 로그인
-  * /signup : 가입
-  * /admin/ : 사이트 최고 관리자
 
 
 

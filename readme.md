@@ -24,10 +24,7 @@ docker를 이용하여 구동환경을 맞춰주고, 개발도구(PyCharm 또는
 1. 장고 설정하기 
     1. `/config/settings/local.example.py`을 복사해서 `/config/settings/local.py`를 새로 만든다.
     2. 설정파일(`local.py`)에서 입력해줘야 할 것들
-        * `SECRET_KEY`설정 : 다음의 커맨드를 실행하면 키를 랜덤하게 생성해주는데, 이 키를 복사해서 넣어주도록 한다.
-            ```console
-            python config/settings/generate_secretkey.py
-            ```
+        * `SECRET_KEY`설정 : `python config/settings/generate_secretkey.py` 커맨드를 실행하면 키를 랜덤하게 생성해주는데, 생성된 키 값을 복사해서 넣어주도록 한다.
 2. 도커 환경변수 설정하기
     1. `_docker` 폴더에서 `.local.env.example`을 복사해서 `.local.env`파일을 새로 만든다.
     2. 위의 설정 파일(`.local.env`)에서 다음을 입력해준다.
