@@ -1,0 +1,36 @@
+{% extends 'layouts/default.html' %}
+{% block css_link %}
+<link href="/assets/css/board.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+<div id="board" class="board-form">
+	<table class="tbl-ex">
+		<tr>
+			<th colspan="2">글보기</th>
+		</tr>
+		<tr>
+			<td class="label">제목</td>
+			<td>{{ post.title }}</td>
+		</tr>
+		<tr>
+			<td class="label">내용</td>
+			<td>
+				<div class="view-content">
+					{{ post.contents | linebreaksbr }}
+				</div>
+			</td>
+		</tr>
+	</table>
+	<div class="bottom">
+		<a href="{{ baseurl }}/">글목록</a>
+		{% if request.session.authuser is not None %}
+			{% if post.user_id == request.session.authuser.id %}
+				<a href="{{ baseurl }}/updateform?id={{ post.id }}">글수정</a>
+			{% endif %}
+		{% endif %}
+		{% if request.session.authuser is not None %}
+			<a href="{{ baseurl }}/replyform?id={{ post.id }}">답글</a>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
