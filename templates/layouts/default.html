@@ -109,7 +109,7 @@
         </div>
       </div><!-- //.sidebar-wrap -->
       <div id="content-wrapper" class="d-flex flex-column">
-        <nav class="navbar navbar-dark bg-dark">
+        <nav class="navbar navbar-dark bg-dark p-3">
           <div class="container flex-row-reverse">
             {% if user.is_authenticated %}
             <div class="dropdown text-end">
@@ -129,7 +129,7 @@
             </div>
             {% else %}
             <div class="text-end">
-              <a href="{{ settings.CUSTOM.LOGIN_URL }}" class="d-block link-light text-decoration-none">Sign in</a>
+              <a href="{{ settings.CUSTOM.LOGIN_URL }}" class="d-block link-light text-decoration-none" style="height:32px"><span class="align-middle">Sign in</span></a>
             </div>
             {% endif %}
           </div>

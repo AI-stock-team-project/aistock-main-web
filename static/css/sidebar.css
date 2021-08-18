@@ -26,6 +26,7 @@
     flex: 1 1 auto;
     background-color: #f8f9fc;
     overflow-x: hidden;
+    overflow-y: scroll;
 }
 #wrapper #content-wrapper #content {
     flex: 1 0 auto;
