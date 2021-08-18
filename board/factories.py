@@ -21,7 +21,8 @@ class BoardConfigFactory(factory.django.DjangoModelFactory):
     # fields
     name = factory.Faker('sentence')
     display_name = factory.Faker('sentence')
-    route = factory.Sequence(lambda n: "Sample_%03d" % (n%3))
+    # route = factory.Sequence(lambda n: "Sample_%03d" % (n%3))
+    route = 'discussion'
     
 
 class PostFactory(factory.django.DjangoModelFactory):

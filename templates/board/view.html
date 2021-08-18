@@ -1,36 +1,31 @@
 {% extends 'layouts/default.html' %}
 {% block css_link %}
-<link href="/assets/css/board.css" rel="stylesheet" type="text/css">
 {% endblock %}
 {% block content %}
-<div id="board" class="board-form">
-	<table class="tbl-ex">
-		<tr>
-			<th colspan="2">글보기</th>
-		</tr>
-		<tr>
-			<td class="label">제목</td>
-			<td>{{ post.title }}</td>
-		</tr>
-		<tr>
-			<td class="label">내용</td>
-			<td>
-				<div class="view-content">
-					{{ post.contents | linebreaksbr }}
-				</div>
-			</td>
-		</tr>
-	</table>
-	<div class="bottom">
-		<a href="{{ baseurl }}/">글목록</a>
-		{% if request.session.authuser is not None %}
-			{% if post.user_id == request.session.authuser.id %}
-				<a href="{{ baseurl }}/updateform?id={{ post.id }}">글수정</a>
-			{% endif %}
-		{% endif %}
-		{% if request.session.authuser is not None %}
-			<a href="{{ baseurl }}/replyform?id={{ post.id }}">답글</a>
-		{% endif %}
-	</div>
+<div id="board">
+	<h3>토론방</h3>
+	<div class="card m-2">
+		<div class="card-body">
+      <h4>{{ post.title }}</h4>
+      <div>
+        <small>작성자 {{ post.author.username }}</small>
+        <small class="px-2">작성일 {{ post.created_at | date:'Y-m-d' }}</small>
+        <small>조회수 {{ post.hit }}</small>
+      </div>
+      <hr>
+      <div style="min-height: 20rem;">
+        {{ post.contents | linebreaksbr }}
+      </div>
+      <div>
+        <a href="{{ baseurl }}{{ queryString }}" class="btn btn-outline-secondary btn-sm">글목록</a>
+        {% if user.is_authenticated %}
+          {% if post.user_id == request.session.authuser.id %}
+            <a href="{% url 'board:edit' board.route %}?id={{ post.id }}{{ queryStringExtend }}" class="btn btn-outline-secondary btn-sm">글수정</a>
+          {% endif %}
+          <a href="{% url 'board:reply' board.route %}?id={{ post.id }}" class="btn btn-outline-secondary btn-sm">답글</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
