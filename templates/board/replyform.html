@@ -1,33 +1,21 @@
 {% extends 'layouts/default.html' %}
 {% block css_link %}
-<link href="/assets/css/board.css" rel="stylesheet" type="text/css">
 {% endblock %}
 {% block content %}
 <div id="board">
-	<form class="board-form" method="post" action="{{ baseurl }}/reply">
-		{% csrf_token %}
-		<input type="hidden" name="g_no" value="{{ origin.g_no }}">
-		<input type="hidden" name="o_no" value="{{ origin.o_no }}">
-		<input type="hidden" name="depth" value="{{ origin.depth }}">
-		<table class="tbl-ex">
-			<tr>
-				<th colspan="2">답글달기</th>
-			</tr>
-			<tr>
-				<td class="label">제목</td>
-				<td><input type="text" name="title" value=""></td>
-			</tr>
-			<tr>
-				<td class="label">내용</td>
-				<td>
-					<textarea id="content" name="contents"></textarea>
-				</td>
-			</tr>
-		</table>
-		<div class="bottom">
-			<a href="{{ baseurl }}">취소</a>
-			<input type="submit" value="등록">
-		</div>
-	</form>
+  <h3>토론방</h3>
+  <h5 class="mt-5">답글달기</h5>
+	<div class="card m-2">
+	  <div class="card-body">  
+      <form class="board-form" method="post" action="{% url 'board:reply_store' board.route origin.id %}">
+        {% csrf_token %}
+        {% include 'board/_form.html' %}
+        <div class="bottom">
+          <input type="submit" value="저장" class="btn btn-primary">
+          <a href="{{ view_url }}{{ queryString }}" class="btn btn-link">취소</a>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 {% endblock %}

@@ -8,6 +8,7 @@ from urllib.parse import urlencode
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.db.models import F
 
 
 # 게시판 보기. (글 목록)
@@ -112,7 +113,7 @@ def write(request, route_id):
     # 권한 체크 (로그인 해제되었거나 잘못된 접근)
     if not request.user.is_active:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect('/board/')
+        return redirect('board:index', route_id=route_id)
 
     # 페이지 변수 (물고다니는 변수임)
     page = int(request.GET.get('page', '1'))
@@ -143,8 +144,10 @@ def post_store(request, route_id):
     # 권한 체크 (로그인 해제되었거나 잘못된 접근)
     if not request.user.is_active:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect('/board/')
+        return redirect('board:index', route_id=route_id)
+        # return redirect('/board/')
 
+    # 파라미터 조회
     title = request.POST.get('title', '')
     contents = request.POST.get('contents', '')
 
@@ -158,21 +161,17 @@ def post_store(request, route_id):
     post.title = title
     post.contents = contents
     post.author = request.user
+    post.board = board
     post.g_no = int(max_gno) + 1
     post.save()
 
-    # board = Board(title=title, contents=contents, user=user)
-    # board.save()
-
-    # ret = Board.insert(data)
-    # if ret != 1:
-    #     return HttpResponse('오류 발생')
-
-    return redirect(f'/board/view/?id={post.id}')
+    # 완료
+    messages.info(request, '글이 새로 작성되었습니다.')
+    return redirect('board:view', route_id=route_id, post_id=post.id)
 
 
 @login_required()
-def edit(request, route_id):
+def edit(request, route_id, post_id):
     """
     게시판 > 글 수정
     """
@@ -185,28 +184,40 @@ def edit(request, route_id):
     # 권한 체크 (로그인 해제되었거나 잘못된 접근)
     if not request.user.is_active:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect('/board/')
+        return redirect('board:index', route_id=route_id)
 
     # post_id 파라미터가 없음
-    post_id = request.GET.get('id')
+    # post_id = request.GET.get('id')
     if post_id is None:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect('/board/')
+        return redirect('board:index', route_id=route_id)
 
     # post_id 파라미터의 유효성 체크
     post = Board.objects.get(id=post_id)
     if post is None:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect('/board/')
+        return redirect('board:index', route_id=route_id)
 
+    # view url
+    view_url = reverse('board:view', kwargs={'route_id':route_id, 'post_id':post_id})
+    
     # 작성자 여부 + 관리자 여부
     if not request.user.is_superuser and post.author != request.user:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect(f'/board/view/?id={post_id}')
+        return redirect(view_url)
 
+    # 페이지 변수 (물고다니는 변수임)
+    page = int(request.GET.get('page', '1'))
+    currentParams = {}
+    if page > 1 :
+        currentParams['page'] = page
+    
+    # view rendering
     context = {
         'post': post,
-        'baseurl': '/board'
+        'board' : board,
+        'view_url' : view_url,
+        'queryString' : convQueryStringParams(currentParams, '?')
     }
     return render(request, "board/updateform.html", context)
 
@@ -225,25 +236,26 @@ def update(request, route_id):
     # 권한 체크 (로그인 해제되었거나 잘못된 접근)
     if not request.user.is_active:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect('/board/')
+        return redirect('board:index', route_id=route_id)
     
     # post_id 파라미터가 없음
     post_id = request.POST.get('id')
     if post_id is None:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect('/board/')
+        return redirect('board:index', route_id=route_id)
 
     # post_id 파라미터의 유효성 체크
     post = Board.objects.get(id=post_id)
     if post is None:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect('/board/')
+        return redirect('board:index', route_id=route_id)
 
     # 작성자 여부 + 관리자 여부
     if not request.user.is_superuser and post.author != request.user:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect(f'/board/view/?id={post_id}')
+        return redirect('board:view', route_id=route_id, post_id=post_id)
 
+    # 파라미터 조회
     title = request.POST.get('title', '')
     contents = request.POST.get('contents', '')
 
@@ -252,11 +264,13 @@ def update(request, route_id):
     post.contents = contents
     post.save()
 
-    return redirect(f'/board/view/?id={post.id}')
+    # 완료
+    messages.info(request, '변경이 완료되었습니다.')
+    return redirect('board:view', route_id=route_id, post_id=post.id)
 
 
 @login_required()
-def delete(request, route_id):
+def delete(request, route_id, post_id):
     """
     게시판 > 글 삭제 처리
     """
@@ -269,33 +283,35 @@ def delete(request, route_id):
     # 권한 체크 (로그인 해제되었거나 잘못된 접근)
     if not request.user.is_active:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect('/board/')
+        return redirect('board:index', route_id=route_id)
 
     # post_id 파라미터가 없음
-    post_id = request.GET.get('id')
+    # post_id = request.GET.get('id')
     if post_id is None:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect('/board/')
+        return redirect('board:index', route_id=route_id)
 
     # post_id 파라미터의 유효성 체크
     post = Board.objects.get(id=post_id)
     if post is None:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect('/board/')
+        return redirect('board:index', route_id=route_id)
 
     # 작성자 여부 + 관리자 여부
     if not request.user.is_superuser and post.author != request.user:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect(f'/board/view/?id={post_id}')
+        return redirect('board:view', route_id=route_id, post_id=post_id)
 
     # 삭제 처리
     post.delete()
 
-    return redirect(f'/board/')
+    # 완료
+    messages.info(request, '삭제가 완료되었습니다.')
+    return redirect('board:index', route_id=route_id)
 
 
 @login_required()
-def reply(request, route_id):
+def reply(request, route_id, post_id):
     """
     게시판 > 답변 글 작성
     """
@@ -308,30 +324,43 @@ def reply(request, route_id):
     # 권한 체크 (로그인 해제되었거나 잘못된 접근)
     if not request.user.is_active:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect('/board/')
+        return redirect('board:index', route_id=route_id)
 
     # post_id 파라미터가 없음
-    post_id = request.GET.get('id')
+    # post_id = request.GET.get('id')
     if post_id is None:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect('/board/')
+        return redirect('board:index', route_id=route_id)
 
     # post_id 파라미터의 유효성 체크
     post = Board.objects.get(id=post_id)
     if post is None:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect('/board/')
+        return redirect('board:index', route_id=route_id)
 
+    # 페이지 변수 (물고다니는 변수임)
+    page = int(request.GET.get('page', '1'))
+    currentParams = {}
+    if page > 1 :
+        currentParams['page'] = page
+
+    # view url
+    view_url = reverse('board:view', kwargs={'route_id':route_id, 'post_id':post_id})
+
+    # view rendering
     context = {
         'origin': post,
-        'baseurl': '/board'
+        'baseurl': '/board',
+        'board' : board,
+        'view_url' : view_url,
+        'queryString' : convQueryStringParams(currentParams, '?')
     }
     return render(request, 'board/replyform.html', context)
 
 
 # 답변글 처리
 @login_required()
-def reply_store(request, route_id):
+def reply_store(request, route_id, origin_post_id):
     """
     게시판 > 답변 글 작성 > 처리
     """
@@ -344,27 +373,38 @@ def reply_store(request, route_id):
     # 권한 체크 (로그인 해제되었거나 잘못된 접근)
     if not request.user.is_active:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
-        return redirect('/board/')
+        return redirect('board:index', route_id=route_id)
 
+    # post_id 파라미터의 유효성 체크
+    origin_post = Board.objects.get(id=origin_post_id)
+    if origin_post is None:
+        messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
+        return redirect('board:index', route_id=route_id)
+
+    # 상위의 'o_no'를 기준으로 동일한 그룹(g_no)안에서 
+    # o_no가 큰 것들을 전부 +1 시켜준다. 
+    # (즉, 한칸씩 밑으로 더 내린다. 그 중간에 새로운 답변글이 위치해야함)
+    Board.objects.filter(g_no=origin_post.g_no, o_no__gt=origin_post.o_no).update(
+        o_no = F('o_no')+1
+    )
+
+    # 파라미터 조회
     title = request.POST.get('title', '')
     contents = request.POST.get('contents', '')
 
-    g_no = request.POST.get('g_no', 0)
-    o_no = request.POST.get('o_no', 0)
-    depth = request.POST.get('depth', 0)
-
     # 변경 처리
-    board = Board()
-    board.title = title
-    board.contents = contents
-    board.author = request.user
-    board.g_no = int(g_no)
-    board.o_no = int(o_no) + 1
-    board.depth = int(depth) + 1
-    board.save()
+    post = Board()
+    post.title = title
+    post.contents = contents
+    post.author = request.user
+    post.board = board
+    post.g_no = int(origin_post.g_no)
+    post.o_no = int(origin_post.o_no) + 1
+    post.depth = int(origin_post.depth) + 1
+    post.save()
 
     # ret = Board.reply(data)
     # if ret != 1:
     #    return HttpResponse('오류 발생')
-
-    return redirect('/board/')
+    return redirect('board:view', route_id=route_id, post_id=post.id)
+    # return redirect('/board/')

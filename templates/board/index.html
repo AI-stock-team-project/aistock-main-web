@@ -1,6 +1,7 @@
 {% extends 'layouts/default.html' %}
 {% block css_link %}
 {% endblock %}
+{% load static %}
 {% block content %}
 <div id="board">
   <h3>토론방</h3>
@@ -21,8 +22,8 @@
           <td>
             {{ post.id }}
           </td>
-          <td style="text-align:left;">
-            {% if post.depth > 0 %}<img src="/assets/images/reply.png">{% endif %}
+          <td class="">
+            {% if post.depth > 0 %}<img src="{% static 'board/reply.png' %}" class="{% if post.depth > 5 %}board-depth-5{% else %}board-depth-{{post.depth}}{% endif %}">{% endif %}
             <a href="{% url 'board:view' board.route post.id %}{{ queryString }}" class="link-secondary">{{ post.title }}</a>
           </td>
           <td>{{ post.author.username }}</td>
@@ -86,4 +87,21 @@
 		{% endif %}
 	</div>
 </div>
+<style>
+  .board-depth-1 {
+    padding-left: 1rem
+  }
+  .board-depth-2 {
+    padding-left: 2rem
+  }
+  .board-depth-3 {
+    padding-left: 3rem
+  }
+  .board-depth-4 {
+    padding-left: 4rem
+  }
+  .board-depth-5 {
+    padding-left: 5rem
+  }
+</style>
 {% endblock %}

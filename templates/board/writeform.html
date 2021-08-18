@@ -4,19 +4,12 @@
 {% block content %}
 <div id="board">
   <h3>토론방</h3>
-  <h5 class="mt-5">글쓰기</h5>
+  <h5 class="mt-5">글 작성</h5>
   <div class="card m-2">
     <div class="card-body">
       <form class="board-form" method="post" action="{% url 'board:store' board.route %}">
         {% csrf_token %}
-        <div class="mb-3">
-          <label for="post_title" class="form-label">제목</label>
-          <input name="title" type="text" class="form-control" id="post_title" placeholder="제목을 입력하세요">
-        </div>
-        <div class="mb-3">
-          <label for="post_contents" class="form-label">본문</label>
-          <textarea name="contents" class="form-control" id="post_contents" rows="15"></textarea>
-        </div>
+        {% include 'board/_form.html' %}
         <div>
           <input type="submit" value="저장" class="btn btn-primary">
           <a href="{{ baseurl }}{{ queryString }}" class="btn btn-link">취소</a>

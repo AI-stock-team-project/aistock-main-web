@@ -20,9 +20,9 @@
         <a href="{{ baseurl }}{{ queryString }}" class="btn btn-outline-secondary btn-sm">글목록</a>
         {% if user.is_authenticated %}
           {% if post.user_id == request.session.authuser.id %}
-            <a href="{% url 'board:edit' board.route %}?id={{ post.id }}{{ queryStringExtend }}" class="btn btn-outline-secondary btn-sm">글수정</a>
+            <a href="{% url 'board:edit' board.route post.id %}{{ queryString }}" class="btn btn-outline-secondary btn-sm">글수정</a>
           {% endif %}
-          <a href="{% url 'board:reply' board.route %}?id={{ post.id }}" class="btn btn-outline-secondary btn-sm">답글</a>
+          <a href="{% url 'board:reply' board.route post.id %}{{ queryString }}" class="btn btn-outline-secondary btn-sm">답글</a>
         {% endif %}
       </div>
     </div>

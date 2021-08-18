@@ -1,31 +1,50 @@
 {% extends 'layouts/default.html' %}
 {% block css_link %}
-<link href="/assets/css/board.css" rel="stylesheet" type="text/css">
 {% endblock %}
 {% block content %}
 <div id="board">
-	<form class="board-form" method="post" action="{{ baseurl }}/update">
-		{% csrf_token %}
-		<input type="hidden" name="id" value="{{ post.id }}">
-		<table class="tbl-ex">
-			<tr>
-				<th colspan="2">글수정</th>
-			</tr>
-			<tr>
-				<td class="label">제목</td>
-				<td><input type="text" name="title" value="{{ post.title }}"></td>
-			</tr>
-			<tr>
-				<td class="label">내용</td>
-				<td>
-					<textarea id="content" name="contents">{{ post.contents }}</textarea>
-				</td>
-			</tr>
-		</table>
-		<div class="bottom">
-			<a href="{{ baseurl }}">취소</a>
-			<input type="submit" value="수정">
-		</div>
-	</form>
+	<h3>토론방</h3>
+	<h5 class="mt-5">글 변경</h5>
+	<div class="card m-2">
+	  <div class="card-body">
+		<form class="board-form" method="post" action="{% url 'board:update' board.route %}">
+		  {% csrf_token %}
+      <input type="hidden" name="id" value="{{ post.id }}">
+		  {% include 'board/_form.html' %}
+      <div class="d-flex w-100 justify-content-between">
+        <div>
+          <input type="submit" value="저장" class="btn btn-primary">
+          <a href="{{ view_url }}{{ queryString }}" class="btn btn-link">취소</a>
+        </div>
+        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">삭제</button>
+      </div>
+		</form>
+	  </div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <!--
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">알림</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      -->
+      <div class="modal-body">
+        <div class="mt-2">
+          삭제하시겠습니까?
+        </div>
+        <div class="mt-5 text-end">
+          <form method="POST" action="{% url 'board:delete' board.route post.id %}">
+            {% csrf_token %}
+            <button type="button" class="btn btn-link btn-sm link-secondary" data-bs-dismiss="modal">취소</button>
+            <button type="submit" class="btn btn-danger btn-sm">삭제합니다</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
