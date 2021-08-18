@@ -152,9 +152,9 @@ def post_store(request, route_id):
     contents = request.POST.get('contents', '')
 
     # 답변글 기능을 위한 부분
-    max_gno = BoardPost.objects.aggregate(g_no=Max('g_no'))['g_no']
-    if max_gno is None or max_gno == '':
-        max_gno = 0
+    # max_gno = BoardPost.objects.aggregate(g_no=Max('g_no'))['g_no']
+    # if max_gno is None or max_gno == '':
+    #    max_gno = 0
 
     # 저장 처리
     post = BoardPost()
@@ -162,7 +162,11 @@ def post_store(request, route_id):
     post.contents = contents
     post.author = request.user
     post.board = board
-    post.g_no = int(max_gno) + 1
+    # post.g_no = int(max_gno) + 1
+    post.save()
+
+    # 답변글 기능을 위한 g_no 처리
+    post.g_no = post.id
     post.save()
 
     # 완료
