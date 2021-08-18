@@ -25,15 +25,24 @@ docker-compose 생성 및 실행
 docker-compose --env-file=_docker/.local.env up --build --force-recreate -d
 ```
 
+
 docker-compose 중지
 ```console
 docker-compose --env-file=_docker/.local.env stop
 ```
 
+
+docker-compose에서 제거하고 volume 도 제거
+```console
+docker-compose --env-file=_docker/.local.env down -v
+```
+
+
 docker-compose 중지된 것을 시작
 ```console
 docker-compose --env-file=_docker/.local.env start
 ```
+
 
 
 ## dev 모드 (개발서버 모드)

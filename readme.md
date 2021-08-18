@@ -40,6 +40,15 @@ docker를 이용하여 구동환경을 맞춰주고, 개발도구(PyCharm 또는
         docker-compose --env-file=_docker/.local.env up --build --force-recreate -d
         ```
     4. 자동으로 실행이 된다. 접속은 http://localhost:18000
+    5. 재생성을 해야하는 경우에는 3번을 하기 전에 다음의 명령어를 한 후에 한다.
+        (db 볼륨 삭제)
+        ```console
+        docker-compose --env-file=_docker/.local.env down -v
+        ```
+        (컨테이너 및 이미지, 볼륨 재생성)
+        ```console
+        docker-compose --env-file=_docker/.local.env up --build --force-recreate -d
+        ```
 
 
 알아둘 사항
