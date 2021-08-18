@@ -1,0 +1,31 @@
+{% extends 'layouts/default.html' %}
+{% block css_link %}
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+  <div class="mt-3">
+    <h3>포트폴리오 만들기</h3>
+  </div>
+  <div class="text-center my-5">
+    <h4>투자 종목을 어떻게 선택하시겠습니까?</h4>
+  </div>
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button type="button" class="btn btn-primary my-2">Maximize Sharpe Ratio</button>
+    <button type="button" class="btn btn-secondary my-2">Efficient Risk</button>
+  </div>
+  <div class="mt-5">
+    <h5>최적화 방법 선택</h5>
+    <dl>
+      <dt>1. max_sharpe</dt>
+      <dd>- Risk 범위 선택 불가</dd>
+      <dd>- 샤프비율이 최대가 되도록 포트폴리오 최적화</dd>
+    </dl>
+    
+    <dl>
+      <dt>2. efficient_risk</dt>
+      <dd>- Risk 범위 선택 가능 ( 매개변수: target_volatility )</dd>
+      <dd>- 주어진 변동성(target_volatility) 보다 낮은 범위 내에서 수익률(Return)이 최대가 되도록 포트폴리오 최적화</dd>
+    </dl>
+  </div>
+</div>
+{% endblock %}

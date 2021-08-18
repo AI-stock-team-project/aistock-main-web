@@ -1,7 +1,8 @@
 # 개발 환경, 로컬 환경에서의 Docker [도커 파일]
 
 # slim-buster 는 데비안의 경량화 버전을 말함
-FROM python:3.9.5-slim-buster
+FROM python:3.9.6-slim-buster
+# FROM python:3.9.6-slim-bullseye
 WORKDIR /app
 
 # wget (dockerize에 필요) 설치

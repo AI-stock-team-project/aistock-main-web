@@ -1,0 +1,31 @@
+{% extends 'layouts/default.html' %}
+{% block css_link %}
+{% endblock %}
+{% block content %}
+<div id="board" class="container mt-3">
+	<h3>토론방</h3>
+	<div class="card m-2">
+		<div class="card-body">
+      <h4>{{ post.title }}</h4>
+      <div>
+        <small>작성자 {{ post.author.username }}</small>
+        <small class="px-2">작성일 {{ post.created_at | date:'Y-m-d' }}</small>
+        <small>조회수 {{ post.hit }}</small>
+      </div>
+      <hr>
+      <div style="min-height: 20rem;">
+        {{ post.contents | linebreaksbr }}
+      </div>
+      <div>
+        <a href="{{ baseurl }}{{ queryString }}" class="btn btn-outline-secondary btn-sm">글목록</a>
+        {% if user.is_authenticated %}
+          {% if post.user_id == request.session.authuser.id %}
+            <a href="{% url 'board:edit' board.route post.id %}{{ queryString }}" class="btn btn-outline-secondary btn-sm">글수정</a>
+          {% endif %}
+          <a href="{% url 'board:reply' board.route post.id %}{{ queryString }}" class="btn btn-outline-secondary btn-sm">답글</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

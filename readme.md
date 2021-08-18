@@ -11,8 +11,10 @@
 
 
 # 설치된 패키지
-* `pip install django`
-* `pip install mysql-connector-python`
+* `pip install django` : sqlparse, pytz, asgiref, django
+* `pip install mysql-connector-python` : six, protobuf, mysql-connector-python
+* `pip install django-settings-export` : django-settings-export
+* `pip install factory-boy` : text-unidecode, python-dateutil, Faker, factory-boy
 
 `requirements.txt` 참고
 
@@ -24,10 +26,7 @@ docker를 이용하여 구동환경을 맞춰주고, 개발도구(PyCharm 또는
 1. 장고 설정하기 
     1. `/config/settings/local.example.py`을 복사해서 `/config/settings/local.py`를 새로 만든다.
     2. 설정파일(`local.py`)에서 입력해줘야 할 것들
-        * `SECRET_KEY`설정 : 다음의 커맨드를 실행하면 키를 랜덤하게 생성해주는데, 이 키를 복사해서 넣어주도록 한다.
-            ```console
-            python config/settings/generate_secretkey.py
-            ```
+        * `SECRET_KEY`설정 : `python config/settings/generate_secretkey.py` 커맨드를 실행하면 키를 랜덤하게 생성해주는데, 생성된 키 값을 복사해서 넣어주도록 한다.
 2. 도커 환경변수 설정하기
     1. `_docker` 폴더에서 `.local.env.example`을 복사해서 `.local.env`파일을 새로 만든다.
     2. 위의 설정 파일(`.local.env`)에서 다음을 입력해준다.
@@ -41,6 +40,15 @@ docker를 이용하여 구동환경을 맞춰주고, 개발도구(PyCharm 또는
         docker-compose --env-file=_docker/.local.env up --build --force-recreate -d
         ```
     4. 자동으로 실행이 된다. 접속은 http://localhost:18000
+    5. 재생성을 해야하는 경우에는 3번을 하기 전에 다음의 명령어를 한 후에 한다.
+        (db 볼륨 삭제)
+        ```console
+        docker-compose --env-file=_docker/.local.env down -v
+        ```
+        (컨테이너 및 이미지, 볼륨 재생성)
+        ```console
+        docker-compose --env-file=_docker/.local.env up --build --force-recreate -d
+        ```
 
 
 알아둘 사항

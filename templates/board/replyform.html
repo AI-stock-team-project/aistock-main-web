@@ -1,0 +1,21 @@
+{% extends 'layouts/default.html' %}
+{% block css_link %}
+{% endblock %}
+{% block content %}
+<div id="board" class="container mt-3">
+  <h3>토론방</h3>
+  <h5 class="mt-5">답글달기</h5>
+	<div class="card m-2">
+	  <div class="card-body">  
+      <form class="board-form" method="post" action="{% url 'board:reply_store' board.route origin.id %}">
+        {% csrf_token %}
+        {% include 'board/_form.html' %}
+        <div class="bottom">
+          <input type="submit" value="저장" class="btn btn-primary">
+          <a href="{{ view_url }}{{ queryString }}" class="btn btn-link">취소</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
