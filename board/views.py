@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.db.models import Max
 from django.http import HttpResponseRedirect, HttpResponse
-from board.models import Board, BoardConfig
+from board.models import BoardPost, BoardConfig
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from urllib.parse import urlencode
@@ -29,7 +29,7 @@ def index(request, route_id):
 
 
     # 조회 쿼리
-    results = Board.objects.filter(board_id=board.id).order_by('-g_no', 'o_no')
+    results = BoardPost.objects.filter(board_id=board.id).order_by('-g_no', 'o_no')
 
     paginator = Paginator(results, per_page=per_page)
     # paginator = Paginator(results, per_page=10, orphans=5)
@@ -72,7 +72,7 @@ def view(request, route_id, post_id):
         return redirect('board:index', route_id=route_id)
         # return HttpResponse('잘못된 접근입니다.')
 
-    post = Board.objects.filter(id=post_id).first()
+    post = BoardPost.objects.filter(id=post_id).first()
     if post is None:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
         return redirect('board:index', route_id=route_id)
@@ -152,12 +152,12 @@ def post_store(request, route_id):
     contents = request.POST.get('contents', '')
 
     # 답변글 기능을 위한 부분
-    max_gno = Board.objects.aggregate(g_no=Max('g_no'))['g_no']
+    max_gno = BoardPost.objects.aggregate(g_no=Max('g_no'))['g_no']
     if max_gno is None or max_gno == '':
         max_gno = 0
 
     # 저장 처리
-    post = Board()
+    post = BoardPost()
     post.title = title
     post.contents = contents
     post.author = request.user
@@ -193,7 +193,7 @@ def edit(request, route_id, post_id):
         return redirect('board:index', route_id=route_id)
 
     # post_id 파라미터의 유효성 체크
-    post = Board.objects.get(id=post_id)
+    post = BoardPost.objects.get(id=post_id)
     if post is None:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
         return redirect('board:index', route_id=route_id)
@@ -245,7 +245,7 @@ def update(request, route_id):
         return redirect('board:index', route_id=route_id)
 
     # post_id 파라미터의 유효성 체크
-    post = Board.objects.get(id=post_id)
+    post = BoardPost.objects.get(id=post_id)
     if post is None:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
         return redirect('board:index', route_id=route_id)
@@ -292,7 +292,7 @@ def delete(request, route_id, post_id):
         return redirect('board:index', route_id=route_id)
 
     # post_id 파라미터의 유효성 체크
-    post = Board.objects.get(id=post_id)
+    post = BoardPost.objects.get(id=post_id)
     if post is None:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
         return redirect('board:index', route_id=route_id)
@@ -333,7 +333,7 @@ def reply(request, route_id, post_id):
         return redirect('board:index', route_id=route_id)
 
     # post_id 파라미터의 유효성 체크
-    post = Board.objects.get(id=post_id)
+    post = BoardPost.objects.get(id=post_id)
     if post is None:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
         return redirect('board:index', route_id=route_id)
@@ -376,7 +376,7 @@ def reply_store(request, route_id, origin_post_id):
         return redirect('board:index', route_id=route_id)
 
     # post_id 파라미터의 유효성 체크
-    origin_post = Board.objects.get(id=origin_post_id)
+    origin_post = BoardPost.objects.get(id=origin_post_id)
     if origin_post is None:
         messages.error(request, '권한이 없거나 경로가 잘못되었습니다.')
         return redirect('board:index', route_id=route_id)
@@ -384,7 +384,7 @@ def reply_store(request, route_id, origin_post_id):
     # 상위의 'o_no'를 기준으로 동일한 그룹(g_no)안에서 
     # o_no가 큰 것들을 전부 +1 시켜준다. 
     # (즉, 한칸씩 밑으로 더 내린다. 그 중간에 새로운 답변글이 위치해야함)
-    Board.objects.filter(g_no=origin_post.g_no, o_no__gt=origin_post.o_no).update(
+    BoardPost.objects.filter(g_no=origin_post.g_no, o_no__gt=origin_post.o_no).update(
         o_no = F('o_no')+1
     )
 
@@ -393,7 +393,7 @@ def reply_store(request, route_id, origin_post_id):
     contents = request.POST.get('contents', '')
 
     # 변경 처리
-    post = Board()
+    post = BoardPost()
     post.title = title
     post.contents = contents
     post.author = request.user

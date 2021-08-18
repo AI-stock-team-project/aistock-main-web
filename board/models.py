@@ -37,7 +37,7 @@ class BoardConfig(models.Model):
         self.save()
 
         
-class Board(models.Model):
+class BoardPost(models.Model):
     """
     게시물 테이블
     """

@@ -27,7 +27,7 @@ class BoardConfigFactory(factory.django.DjangoModelFactory):
 
 class PostFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.Board
+        model = models.BoardPost
     # fields
     author = factory.SubFactory(UserFactory)
     board = factory.SubFactory(BoardConfigFactory)
