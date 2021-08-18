@@ -3,10 +3,10 @@
 {% endblock %}
 {% load static %}
 {% block content %}
-<div id="board">
+<div id="board" class="container mt-3">
   <h3>토론방</h3>
   <div class="card m-2">
-    <div class="card-body">
+    <div class="card-body" style="min-height:30rem">
       <table class="table">
         <thead>
           <tr>
@@ -81,7 +81,7 @@
   </nav>
   {% endif %}
   
-  <div>
+  <div class="mx-2">
 		{% if user.is_authenticated %}
 		<a href="{% url 'board:write' board.route %}{{ queryString }}" class="btn btn-outline-secondary btn-sm">글쓰기</a>
 		{% endif %}
