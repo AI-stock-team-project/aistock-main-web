@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -142,6 +143,16 @@ LOGIN_REDIRECT_URL = '/'
 # 이것을 설정하면 registration/logged_out.html이 없어도 됨
 LOGOUT_REDIRECT_URL = '/'
 
+# Bootstrap 에서 이용하기 위해서 Tag명을 변경
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
+
+# templates 로 보낼 설정값 셋
 CUSTOM = {
     'LOGIN_URL' : '/accounts/login/',
     'LOGOUT_URL' : '/accounts/logout/'
