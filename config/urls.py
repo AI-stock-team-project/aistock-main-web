@@ -20,7 +20,6 @@ import stock.views
 import mypage.views
 import lstm.views
 import news.views
-import board.views
 import portfolio.views
 import strategy.views
 
@@ -33,16 +32,7 @@ urlpatterns = [
     path('lstm/', lstm.views.index),
     path('strategy/', strategy.views.index),
     # path('news/', mypage.views.index),
-    # board
-    path('board/', board.views.index),
-    path('board/view/', board.views.view),
-    path('board/writeform/', board.views.writeform),
-    path('board/write', board.views.write),
-    path('board/updateform/', board.views.updateform),
-    path('board/update', board.views.update),
-    path('board/delete/', board.views.delete),
-    path('board/replyform/', board.views.replyform),
-    path('board/reply', board.views.reply),
+    path('board/', include('board.urls')),
     # admin, accounts
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
