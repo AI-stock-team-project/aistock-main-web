@@ -4,6 +4,7 @@ from django.urls import reverse, NoReverseMatch
 
 register = template.Library()
 
+
 @register.simple_tag(takes_context=True)
 def menu_active(context, pattern_or_urlname):
     try:

@@ -2,6 +2,7 @@ import factory
 from . import models
 from django.contrib.auth.models import User
 
+
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
@@ -10,9 +11,10 @@ class UserFactory(factory.django.DjangoModelFactory):
     is_staff = False
     is_superuser = False
     is_active = True
-    username = factory.Sequence(lambda n: "Member_%03d" % (n%3))
+    username = factory.Sequence(lambda n: "Member_%03d" % (n % 3))
     # first_name = factory.Sequence(lambda n: "Agent %03d" % n)
     # username = factory.Faker('name')
+
 
 class BoardConfigFactory(factory.django.DjangoModelFactory):
     class Meta:

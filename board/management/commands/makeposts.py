@@ -3,6 +3,7 @@ from board.factories import PostFactory
 from board.models import BoardPost
 from django.db.models import F
 
+
 class Command(BaseCommand):
     help = 'Closes the specified poll for voting'
 
@@ -22,7 +23,7 @@ class Command(BaseCommand):
             post = PostFactory()
 
         BoardPost.objects.filter(depth=0).update(
-            g_no = F('id')
+            g_no=F('id')
         )
 
         self.stdout.write(self.style.SUCCESS('Successfully "%s"' % cnt))

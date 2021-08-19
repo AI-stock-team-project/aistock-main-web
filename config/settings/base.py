@@ -154,8 +154,8 @@ MESSAGE_TAGS = {
 
 # templates 로 보낼 설정값 셋
 CUSTOM = {
-    'LOGIN_URL' : '/accounts/login/',
-    'LOGOUT_URL' : '/accounts/logout/'
+    'LOGIN_URL': '/accounts/login/',
+    'LOGOUT_URL': '/accounts/logout/'
 }
 
 # template 으로 export 하는 설정.

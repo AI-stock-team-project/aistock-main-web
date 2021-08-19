@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Stock(models.Model):
     # 코드. 기본값 6자리 숫자
@@ -29,6 +30,7 @@ class Stock(models.Model):
 
     class Meta:
         db_table = "stock"
+
 
 class StockPrice(models.Model):
     code = models.CharField(max_length=45)
