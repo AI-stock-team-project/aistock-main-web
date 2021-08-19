@@ -3,20 +3,27 @@
 {% endblock %}
 {% block content %}
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
-
 <div class="container mt-3">
+  <div>
+    {% if form.errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" >
+      아이디 또는 비밀번호가 잘못되었습니다. 다시 시도해주세요.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    {% if next %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" >
+      {% if user.is_authenticated %}
+      액세스할 수 있는 유저로 로그인이 필요합니다.
+      {% else %}
+      이 페이지를 보려면 로그인이 필요합니다.
+      {% endif %}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+  </div>
+
   <div class="form-signin vstack gap-2 mx-auto text-center">
     <form method="post" action="{% url 'login' %}">
       {% csrf_token %}
