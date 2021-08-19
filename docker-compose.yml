@@ -19,6 +19,7 @@ services:
       - ${APP_PORT_EXTERNAL}:${APP_PORT}
     depends_on:
       - db
+      - data-api
     volumes:
       - .:/app/web
     # command: python manage.py runserver 0.0.0.0:8000
@@ -51,7 +52,6 @@ services:
       - ./api-shell-data:/app
     depends_on: 
       - db
-      - webapp
     ports: 
       - 15000:5000
 volumes:
