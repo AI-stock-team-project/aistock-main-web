@@ -20,7 +20,8 @@ class Command(BaseCommand):
             raise CommandError('greater than or equal to 1.')
 
         for i in range(cnt):
-            post = PostFactory()
+            # post = PostFactory()
+            PostFactory()
 
         BoardPost.objects.filter(depth=0).update(
             g_no=F('id')

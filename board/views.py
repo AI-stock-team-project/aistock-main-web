@@ -1,14 +1,13 @@
-from django.shortcuts import redirect, render
-from django.db.models import Max
-from django.http import HttpResponseRedirect, HttpResponse
-from board.models import BoardPost, BoardConfig
-from django.core.paginator import Paginator
-from django.contrib.auth.models import User
 from urllib.parse import urlencode
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
+from django.core.paginator import Paginator
 from django.db.models import F
+from django.shortcuts import redirect, render
+from django.urls import reverse
+
+from board.models import BoardPost, BoardConfig
 
 
 # 게시판 보기. (글 목록)
