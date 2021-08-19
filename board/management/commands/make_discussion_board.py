@@ -21,9 +21,10 @@ class Command(BaseCommand):
     help = 'create board config [discussion]'
 
     # def add_arguments(self, parser):
-        # parser.add_argument('num', nargs=1, type=int)
+    # parser.add_argument('num', nargs=1, type=int)
 
     def handle(self, *args, **options):
-        board_config = BoardConfigFactory()
+        # board_config = BoardConfigFactory()
+        BoardConfigFactory()
 
         self.stdout.write(self.style.SUCCESS('Successfully create discussion'))

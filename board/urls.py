@@ -3,10 +3,7 @@ from . import views
 
 app_name = 'board'
 urlpatterns = [
-    # board
     path('<route_id>/', views.index, name='index'),
-    # path('discussion/', views.index, {'board_id':1}),
-    # path('', views.index),
     path('<route_id>/<int:post_id>/', views.view, name='view'),
     path('<route_id>/write/', views.write, name='write'),
     path('<route_id>/store/', views.post_store, name='store'),

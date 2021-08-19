@@ -3,8 +3,9 @@ from board.factories import PostFactory
 from board.models import BoardPost
 from django.db.models import F
 
+
 class Command(BaseCommand):
-    help = 'Closes the specified poll for voting'
+    help = 'make random posts'
 
     def add_arguments(self, parser):
         parser.add_argument('num', nargs=1, type=int)
@@ -19,10 +20,11 @@ class Command(BaseCommand):
             raise CommandError('greater than or equal to 1.')
 
         for i in range(cnt):
-            post = PostFactory()
+            # post = PostFactory()
+            PostFactory()
 
         BoardPost.objects.filter(depth=0).update(
-            g_no = F('id')
+            g_no=F('id')
         )
 
         self.stdout.write(self.style.SUCCESS('Successfully "%s"' % cnt))

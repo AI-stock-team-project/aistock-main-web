@@ -1,14 +1,13 @@
-from django.shortcuts import redirect, render
-from django.db.models import Max
-from django.http import HttpResponseRedirect, HttpResponse
-from board.models import BoardPost, BoardConfig
-from django.core.paginator import Paginator
-from django.contrib.auth.models import User
 from urllib.parse import urlencode
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
+from django.core.paginator import Paginator
 from django.db.models import F
+from django.shortcuts import redirect, render
+from django.urls import reverse
+
+from board.models import BoardPost, BoardConfig
 
 
 # 게시판 보기. (글 목록)
@@ -27,7 +26,6 @@ def index(request, route_id):
     # 목록에서 표현되는 게시글 수 
     per_page = 8
 
-
     # 조회 쿼리
     results = BoardPost.objects.filter(board_id=board.id).order_by('-g_no', 'o_no')
 
@@ -35,22 +33,22 @@ def index(request, route_id):
     # paginator = Paginator(results, per_page=10, orphans=5)
     main_list = paginator.get_page(page)
 
-    currentParams = {}
-    if page > 1 :
-        currentParams['page'] = page
+    current_params = {}
+    if page > 1:
+        current_params['page'] = page
 
     # view rendering
     context = {
         'main_list': main_list,
-        'board' : board,
-        'baseurl' : reverse('board:index', kwargs={'route_id':route_id}),
-        'queryStringExtend' : convQueryStringParams(currentParams),
-        'queryString' : convQueryStringParams(currentParams, '?')
+        'board': board,
+        'baseurl': reverse('board:index', kwargs={'route_id': route_id}),
+        'queryStringExtend': conv_query_string_params(current_params),
+        'queryString': conv_query_string_params(current_params, '?')
     }
     return render(request, 'board/index.html', context)
 
 
-def convQueryStringParams(params, prefix='&'):
+def conv_query_string_params(params, prefix='&'):
     if len(params) > 0:
         return prefix + urlencode(params)
     else:
@@ -84,17 +82,17 @@ def view(request, route_id, post_id):
 
     # 페이지 변수 (물고다니는 변수임)
     page = int(request.GET.get('page', '1'))
-    currentParams = {}
-    if page > 1 :
-        currentParams['page'] = page
+    current_params = {}
+    if page > 1:
+        current_params['page'] = page
 
     # view rendering
     context = {
         'post': post,
-        'board' : board,
-        'baseurl': reverse('board:index', kwargs={'route_id':route_id}),
-        'queryStringExtend' : convQueryStringParams(currentParams),
-        'queryString' : convQueryStringParams(currentParams, '?'),
+        'board': board,
+        'baseurl': reverse('board:index', kwargs={'route_id': route_id}),
+        'queryStringExtend': conv_query_string_params(current_params),
+        'queryString': conv_query_string_params(current_params, '?'),
     }
     return render(request, "board/view.html", context)
 
@@ -117,15 +115,15 @@ def write(request, route_id):
 
     # 페이지 변수 (물고다니는 변수임)
     page = int(request.GET.get('page', '1'))
-    currentParams = {}
-    if page > 1 :
-        currentParams['page'] = page
+    current_params = {}
+    if page > 1:
+        current_params['page'] = page
     
     # view rendering
     context = {
-        'board' : board,
-        'baseurl' : reverse('board:index', kwargs={'route_id':route_id}),
-        'queryString' : convQueryStringParams(currentParams, '?')
+        'board': board,
+        'baseurl': reverse('board:index', kwargs={'route_id': route_id}),
+        'queryString': conv_query_string_params(current_params, '?')
     }
     return render(request, "board/writeform.html", context)
 
@@ -203,7 +201,7 @@ def edit(request, route_id, post_id):
         return redirect('board:index', route_id=route_id)
 
     # view url
-    view_url = reverse('board:view', kwargs={'route_id':route_id, 'post_id':post_id})
+    view_url = reverse('board:view', kwargs={'route_id': route_id, 'post_id': post_id})
     
     # 작성자 여부 + 관리자 여부
     if not request.user.is_superuser and post.author != request.user:
@@ -212,16 +210,16 @@ def edit(request, route_id, post_id):
 
     # 페이지 변수 (물고다니는 변수임)
     page = int(request.GET.get('page', '1'))
-    currentParams = {}
-    if page > 1 :
-        currentParams['page'] = page
+    current_params = {}
+    if page > 1:
+        current_params['page'] = page
     
     # view rendering
     context = {
         'post': post,
-        'board' : board,
-        'view_url' : view_url,
-        'queryString' : convQueryStringParams(currentParams, '?')
+        'board': board,
+        'view_url': view_url,
+        'queryString': conv_query_string_params(current_params, '?')
     }
     return render(request, "board/updateform.html", context)
 
@@ -344,20 +342,20 @@ def reply(request, route_id, post_id):
 
     # 페이지 변수 (물고다니는 변수임)
     page = int(request.GET.get('page', '1'))
-    currentParams = {}
-    if page > 1 :
-        currentParams['page'] = page
+    current_params = {}
+    if page > 1:
+        current_params['page'] = page
 
     # view url
-    view_url = reverse('board:view', kwargs={'route_id':route_id, 'post_id':post_id})
+    view_url = reverse('board:view', kwargs={'route_id': route_id, 'post_id': post_id})
 
     # view rendering
     context = {
         'origin': post,
         'baseurl': '/board',
-        'board' : board,
-        'view_url' : view_url,
-        'queryString' : convQueryStringParams(currentParams, '?')
+        'board': board,
+        'view_url': view_url,
+        'queryString': conv_query_string_params(current_params, '?')
     }
     return render(request, 'board/replyform.html', context)
 
@@ -389,7 +387,7 @@ def reply_store(request, route_id, origin_post_id):
     # o_no가 큰 것들을 전부 +1 시켜준다. 
     # (즉, 한칸씩 밑으로 더 내린다. 그 중간에 새로운 답변글이 위치해야함)
     BoardPost.objects.filter(g_no=origin_post.g_no, o_no__gt=origin_post.o_no).update(
-        o_no = F('o_no')+1
+        o_no=F('o_no')+1
     )
 
     # 파라미터 조회
