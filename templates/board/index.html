@@ -82,9 +82,7 @@
   {% endif %}
   
   <div class="mx-2">
-		{% if user.is_authenticated %}
 		<a href="{% url 'board:write' board.route %}{{ queryString }}" class="btn btn-outline-secondary btn-sm">글쓰기</a>
-		{% endif %}
 	</div>
 </div>
 <style>

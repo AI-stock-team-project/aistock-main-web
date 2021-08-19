@@ -22,6 +22,9 @@
         /*width: 14rem!important;*/
     }
 }
+.sidebar ul li svg{
+    margin-right: 10px;
+}
 #content-wrapper {
     flex: 1 1 auto;
     background-color: #f8f9fc;
