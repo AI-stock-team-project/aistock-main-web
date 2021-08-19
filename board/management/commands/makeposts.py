@@ -5,7 +5,7 @@ from django.db.models import F
 
 
 class Command(BaseCommand):
-    help = 'Closes the specified poll for voting'
+    help = 'make random posts'
 
     def add_arguments(self, parser):
         parser.add_argument('num', nargs=1, type=int)
