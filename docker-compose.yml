@@ -35,5 +35,24 @@ services:
       - ${MYSQL_PORT_EXTERNAL}:${MYSQL_PORT}
     volumes:
       - maindb:/var/lib/mysql
+  data-api:
+    build:
+      context: ./api-shell-data
+      dockerfile: Dockerfile
+    environment: 
+      - DB_HOST=db
+      - DB_PORT=${MYSQL_PORT}
+      - DB_DATABASE=${MYSQL_DATABASE}
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - FLASK_ENV=development
+      - FLASE_DEBUG=True
+    volumes:
+      - ./api-shell-data:/app
+    depends_on: 
+      - db
+      - webapp
+    ports: 
+      - 15000:5000
 volumes:
   maindb:
