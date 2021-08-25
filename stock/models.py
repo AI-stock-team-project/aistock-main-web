@@ -33,13 +33,24 @@ class Stock(models.Model):
 
 
 class StockPrice(models.Model):
+    # 심볼 코드
     code = models.CharField(max_length=45)
-    open = models.CharField(max_length=45)
-    close = models.CharField(max_length=45)
-    high = models.CharField(max_length=45)
-    volume = models.CharField(max_length=45)
-    diff = models.CharField(max_length=45)
+    # 일자
     date = models.DateField()
-
+    # 시가
+    open = models.IntegerField(default=0)
+    # 고가
+    high = models.IntegerField(default=0)
+    # 저가
+    low = models.IntegerField(default=0)
+    # 종가
+    close = models.IntegerField(default=0)
+    # 거래량
+    volume = models.IntegerField(default=0)
+    # 거래대금
+    trad_value = models.BigIntegerField(default=0)
+    # 등락률
+    fluc_rate = models.CharField(max_length=15, default='0.0')
+    
     class Meta:
         db_table = "stock_price"
