@@ -19,7 +19,6 @@ services:
       - ${APP_PORT_EXTERNAL}:${APP_PORT}
     depends_on:
       - db
-      - data-api
     volumes:
       - .:/app/web
     # command: python manage.py runserver 0.0.0.0:8000
@@ -38,7 +37,7 @@ services:
       - maindb:/var/lib/mysql
   data-api:
     build:
-      context: ./api-shell-data
+      context: ./data-api
       dockerfile: Dockerfile
     environment: 
       - DB_HOST=db
@@ -49,10 +48,12 @@ services:
       - FLASK_ENV=development
       - FLASE_DEBUG=True
     volumes:
-      - ./api-shell-data:/app
+      - ./data-api:/app
     depends_on: 
       - db
+      - webapp
     ports: 
       - 15000:5000
+    entrypoint: /bin/bash ./docker-entrypoint.sh
 volumes:
   maindb:
