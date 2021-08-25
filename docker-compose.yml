@@ -47,6 +47,7 @@ services:
       - DB_PASSWORD=${MYSQL_PASSWORD}
       - FLASK_ENV=development
       - FLASE_DEBUG=True
+      - TZ=Asia/Seoul
     volumes:
       - ./data-api:/app
     depends_on: 
