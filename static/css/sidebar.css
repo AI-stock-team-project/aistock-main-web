@@ -22,8 +22,20 @@
         /*width: 14rem!important;*/
     }
 }
+@media (max-width: 768px){
+    .sidebar-wrap {
+        width: 60px;
+    }
+    .sub-top-brand{
+        display: inline !important;
+    }
+}
 .sidebar ul li svg{
     margin-right: 10px;
+}
+.sidebar .sidebar-footer svg{
+    margin-right: 10px;
+    margin-left: 10px;
 }
 #content-wrapper {
     flex: 1 1 auto;
