@@ -1,3 +1,6 @@
 [submodule "api-shell-data"]
 	path = api-shell-data
 url=https://github.com/AI-stock-team-project/aistock-mainweb-data.git
+[submodule "data-api"]
+	path = data-api
+	url = https://github.com/AI-stock-team-project/aistock-data-backend-api.git

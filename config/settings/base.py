@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'portfolio',
     'mypage',
     'lstm',
-    'news',
+    'strategy',
     'board',
     'django.contrib.admin',
     'django.contrib.auth',
