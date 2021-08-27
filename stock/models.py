@@ -3,6 +3,12 @@ from django.db import models
 
 # Create your models here.
 class Stock(models.Model):
+    """
+    [주식 종목 테이블]
+    주식 종목이 들어있는 테이블이다. 
+    웹 어플리케이션의 시작시 api를 통해서 데이터를 로드한다.
+    일 단위로 데이터를 갱신한다.
+    """
     # 코드. 기본값 6자리 숫자
     code = models.CharField(max_length=45, null=True)
     # 코드. 국제증권식별번호 ISIN (영문,숫자 12자리)
@@ -33,6 +39,12 @@ class Stock(models.Model):
 
 
 class StockPrice(models.Model):
+    """
+    주가 테이블
+    하루 단위의 주가 정보가 들어있는 테이블이다.
+    웹 어플리케이션의 시작시 api를 통해서 데이터를 로드한다.
+    일 단위로 데이터를 갱신한다.
+    """
     # 심볼 코드
     code = models.CharField(max_length=45)
     # 일자
@@ -54,3 +66,8 @@ class StockPrice(models.Model):
     
     class Meta:
         db_table = "stock_price"
+        indexes = [
+            models.Index(fields=['code', 'date']),
+            models.Index(fields=['code']),
+            models.Index(fields=['date'])
+        ]
