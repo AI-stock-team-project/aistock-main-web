@@ -29,7 +29,7 @@ urlpatterns = [
     path('mypage/', mypage.views.index),
     path('portfolio/', portfolio.views.index),
     path('lstm/', lstm.views.index),
-    path('strategy/', strategy.views.index),
+    path('strategy/', include('strategy.urls')),
     path('board/', include('board.urls')),
     # path('news/', mypage.views.index),
     # admin, accounts
