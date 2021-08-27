@@ -30,6 +30,15 @@
         display: inline !important;
     }
 }
+@media (max-width: 450px){
+    #content-wrapper .navbar{
+        padding-top: 0.5rem !important;
+        padding-bottom: 0.5rem !important
+    }
+    .sidebar-wrap .brand-link + hr{
+        margin-top: 0 !important
+    }
+}
 .sidebar ul li svg{
     margin-right: 10px;
 }
