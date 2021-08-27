@@ -5,11 +5,37 @@
 <div class="container mt-3">
   <div class="mt-3">
     <h3>전략별</h3>
-    <button class="btn btn-secondary">모멘텀 1개월</button>
-    <button class="btn btn-secondary">모멘텀 3개월</button>
-    <button class="btn btn-secondary">듀얼 모멘텀</button>
-    <button class="btn btn-secondary">급등주</button>
-    <button class="btn btn-secondary">상승일 빈도 Top</button>
+    <a href="{% url 'strategy:mo_1' %}" class="btn btn-secondary">모멘텀 1개월</a>
+    <a href="{% url 'strategy:mo_3' %}" class="btn btn-secondary">모멘텀 3개월</a>
+    <a href="{% url 'strategy:dual_mo' %}" class="btn btn-secondary">듀얼 모멘텀</a>
+    <a href="{% url 'strategy:soaring' %}" class="btn btn-secondary">급등주</a>
+    <a href="{% url 'strategy:up_freq' %}" class="btn btn-secondary">상승일 빈도 Top</a>
+    <div class="card m-2">
+      <div class="card-body" style="min-height:30rem">
+        <div class="table-responsive">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th scope="col">종목코드</th>
+                <th scope="col">종목명</th>
+                <th scope="col">구분</th>
+                <th scope="col">전일종가</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in main_list %}
+              <tr>
+                <th>{{ item.ticker }}</th>
+                <td>{{ item.name }}</td>
+                <td>{{ item.market }}</td>
+                <td>{{ item.close }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}
