@@ -1,0 +1,114 @@
+{% extends 'layouts/default.html' %}
+{% block css_link %}
+{% endblock %}
+{% block content %}
+<div class="container mt-3">
+  <div class="mt-3">
+    <h3>포트폴리오 만들기</h3>
+  </div>
+  <div>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+      <a href="#" class="flex-sm-fill text-sm-center nav-link active" id="pills-years-tab" data-bs-toggle="pill" data-bs-target="#pills-years" type="button" role="tab" aria-controls="pills-years" aria-selected="true">투자 기간</a>
+      <a href="#" class="flex-sm-fill text-sm-center nav-link" id="pills-money-tab" data-bs-toggle="pill" data-bs-target="#pills-money" type="button" role="tab" aria-controls="pills-money" aria-selected="false">투자 금액</a>
+      <a href="#" class="flex-sm-fill text-sm-center nav-link" id="pills-risk-tab" data-bs-toggle="pill" data-bs-target="#pills-risk" type="button" role="tab" aria-controls="pills-risk" aria-selected="false">감당 리스크</a>
+      <a href="#" class="flex-sm-fill text-sm-center nav-link" id="pills-items-tab" data-bs-toggle="pill" data-bs-target="#pills-items" type="button" role="tab" aria-controls="pills-items" aria-selected="false">투자 종목</a>
+    </nav>
+    <div class="card mt-2">
+      <div class="card-body" style="min-height: 300px;">
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-years" role="tabpanel" aria-labelledby="pills-years-tab">
+            <div class="text-center" style="padding-top:5rem;">
+              <h5 class="mb-4">투자 기간 입력</h5>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="year" id="btnYear1" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btnYear1">1년</label>
+              
+                <input type="radio" class="btn-check" name="year" id="btnYear2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnYear2">2년</label>
+              
+                <input type="radio" class="btn-check" name="year" id="btnYear3" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnYear3">3년</label>
+
+                <input type="radio" class="btn-check" name="year" id="btnYear4" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnYear4">4년</label>
+
+                <input type="radio" class="btn-check" name="year" id="btnYear5" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnYear5">5년</label>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="pills-money" role="tabpanel" aria-labelledby="pills-money-tab">
+            <h5 class="mt-5 mb-3">투자 금액 입력</h5>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" name="money" id="idMoney" placeholder="투자 금액 (원 단위)">
+              <label for="idMoney">투자 금액 (원 단위)</label>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="pills-risk" role="tabpanel" aria-labelledby="pills-risk-tab">
+            <h5 class="mt-5 mb-3">감당 가능한 최대 리스크</h5>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" name="risk" id="idRisk" placeholder="%">
+              <label for="idRisk">%</label>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="pills-items" role="tabpanel" aria-labelledby="pills-items-tab">
+            <div class="text-center" style="padding-top:5rem;">
+              <h5 class="mb-5">투자 종목을 어떻게 선택하시겠습니까?</h5>
+              <div class="row justify-content-center">
+                <div class="d-grid gap-2 col-6">
+                  <button class="btn btn-primary cs-change-pane" type="button" data-target="#pane-strategy-items">전략별 종목 리스트로 선택</button>
+                  <button class="btn btn-secondary cs-change-pane" type="button" data-target="#pane-pinned-items">관심 종목에서 선택</button>
+                </div>
+              </div>
+            </div>
+            <div style="display: none;" id="pane-strategy-items">
+              <div class="text-center" style="padding-top:5rem;">
+                <h5 class="mb-5">전략별 종목 리스트로 선택</h5>
+                TEST
+              </div>
+            </div><!-- //div#pane-pinned-items -->
+            <div style="display: none;" id="pane-pinned-items">
+              <div class="text-center" style="padding-top:5rem;">
+                <h5 class="mb-5">관심 종목에서 선택</h5>
+                TEST
+              </div>
+            </div><!-- //div#pane-strategy-items -->
+          </div><!-- //div.tab-pane -->
+        </div><!-- //div.tab-content -->
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  cs_change_pane = document.querySelectorAll('.cs-change-pane')
+  cs_change_pane.forEach(function(it){
+    it.addEventListener('click', function(e){
+      handleStrategySubPane(this)
+    })
+  })
+
+  function handleStrategySubPane(el){
+    var matches = document.querySelectorAll("#pills-items > div")
+    matches.forEach(function(item) {
+      item.style.display = 'none'
+    })
+    var targ = document.querySelector(el.dataset.target)
+    targ.style.display = 'block'
+  }
+
+  /*
+  document.addEventListener('click', function(e){
+
+  })
+  function aaaa(){
+    var matches = document.querySelectorAll("#pills-items > div")
+    matches.forEach(function(item) {
+      item.style.display = 'none'
+    });
+    console.log(this.target)
+    var el = document.querySelector('#pane-strategy-items')
+    el.style.display = 'block'
+  }
+  */
+</script>
+{% endblock %}
