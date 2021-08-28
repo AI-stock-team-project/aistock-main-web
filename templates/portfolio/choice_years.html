@@ -10,7 +10,7 @@
     <nav class="nav nav-pills flex-column flex-sm-row">
       <a href="#" class="flex-sm-fill text-sm-center nav-link active" id="pills-years-tab" data-bs-toggle="pill" data-bs-target="#pills-years" role="tab" aria-controls="pills-years" aria-selected="true">투자 기간</a>
       <a href="#" class="flex-sm-fill text-sm-center nav-link" id="pills-money-tab" data-bs-toggle="pill" data-bs-target="#pills-money" role="tab" aria-controls="pills-money" aria-selected="false">투자 금액</a>
-      <a href="#" class="flex-sm-fill text-sm-center nav-link" id="pills-risk-tab" data-bs-toggle="pill" data-bs-target="#pills-risk" role="tab" aria-controls="pills-risk" aria-selected="false">감당 리스크</a>
+      {% if optimize_method != 'max_sharpe' %}<a href="#" class="flex-sm-fill text-sm-center nav-link" id="pills-risk-tab" data-bs-toggle="pill" data-bs-target="#pills-risk" role="tab" aria-controls="pills-risk" aria-selected="false">감당 리스크</a>{% endif %}
       <a href="#" class="flex-sm-fill text-sm-center nav-link" id="pills-items-tab" data-bs-toggle="pill" data-bs-target="#pills-items" role="tab" aria-controls="pills-items" aria-selected="false">투자 종목</a>
     </nav>
     <div class="card mt-2">
@@ -64,7 +64,40 @@
             <div style="display: none;" id="pane-strategy-items">
               <div class="text-center" style="padding-top:5rem;">
                 <h5 class="mb-5">전략별 종목 리스트로 선택</h5>
-                TEST
+                <div class="row justify-content-center">
+                  <div class="col-10 col-sm-6 col-md-4 text-start mb-5">
+                    <div class="form-check">
+                      <input class="form-check-input" value="momentum_1month" type="radio" name="asset_method" id="rdStrategyMomentum1">
+                      <label class="form-check-label" for="rdStrategyMomentum1">
+                        모멘텀 1개월
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" value="momentum_3month" type="radio" name="asset_method" id="rdStrategyMomentum3" checked>
+                      <label class="form-check-label" for="rdStrategyMomentum3">
+                        모멘텀 3개월
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" value="dual_momentum" type="radio" name="asset_method" id="rdStrategyDualMomentum" checked>
+                      <label class="form-check-label" for="rdStrategyDualMomentum">
+                        듀얼 모멘텀
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" value="soaring" type="radio" name="asset_method" id="rdStrategySoaring" checked>
+                      <label class="form-check-label" for="rdStrategySoaring">
+                        급등주
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" value="up_freq" type="radio" name="asset_method" id="rdStrategyUpFreq" checked>
+                      <label class="form-check-label" for="rdStrategyUpFreq">
+                        상승일 빈도 Top
+                      </label>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div><!-- //div#pane-pinned-items -->
             <div style="display: none;" id="pane-pinned-items">
