@@ -8,10 +8,10 @@
   </div>
   <div>
     <nav class="nav nav-pills flex-column flex-sm-row">
-      <a href="#" class="flex-sm-fill text-sm-center nav-link active" id="pills-years-tab" data-bs-toggle="pill" data-bs-target="#pills-years" type="button" role="tab" aria-controls="pills-years" aria-selected="true">투자 기간</a>
-      <a href="#" class="flex-sm-fill text-sm-center nav-link" id="pills-money-tab" data-bs-toggle="pill" data-bs-target="#pills-money" type="button" role="tab" aria-controls="pills-money" aria-selected="false">투자 금액</a>
-      <a href="#" class="flex-sm-fill text-sm-center nav-link" id="pills-risk-tab" data-bs-toggle="pill" data-bs-target="#pills-risk" type="button" role="tab" aria-controls="pills-risk" aria-selected="false">감당 리스크</a>
-      <a href="#" class="flex-sm-fill text-sm-center nav-link" id="pills-items-tab" data-bs-toggle="pill" data-bs-target="#pills-items" type="button" role="tab" aria-controls="pills-items" aria-selected="false">투자 종목</a>
+      <a href="#" class="flex-sm-fill text-sm-center nav-link active" id="pills-years-tab" data-bs-toggle="pill" data-bs-target="#pills-years" role="tab" aria-controls="pills-years" aria-selected="true">투자 기간</a>
+      <a href="#" class="flex-sm-fill text-sm-center nav-link" id="pills-money-tab" data-bs-toggle="pill" data-bs-target="#pills-money" role="tab" aria-controls="pills-money" aria-selected="false">투자 금액</a>
+      <a href="#" class="flex-sm-fill text-sm-center nav-link" id="pills-risk-tab" data-bs-toggle="pill" data-bs-target="#pills-risk" role="tab" aria-controls="pills-risk" aria-selected="false">감당 리스크</a>
+      <a href="#" class="flex-sm-fill text-sm-center nav-link" id="pills-items-tab" data-bs-toggle="pill" data-bs-target="#pills-items" role="tab" aria-controls="pills-items" aria-selected="false">투자 종목</a>
     </nav>
     <div class="card mt-2">
       <div class="card-body" style="min-height: 300px;">
@@ -55,7 +55,7 @@
             <div class="text-center" style="padding-top:5rem;">
               <h5 class="mb-5">투자 종목을 어떻게 선택하시겠습니까?</h5>
               <div class="row justify-content-center">
-                <div class="d-grid gap-2 col-6">
+                <div class="d-grid gap-2 gap-lg-3 col-sm-6">
                   <button class="btn btn-primary cs-change-pane" type="button" data-target="#pane-strategy-items">전략별 종목 리스트로 선택</button>
                   <button class="btn btn-secondary cs-change-pane" type="button" data-target="#pane-pinned-items">관심 종목에서 선택</button>
                 </div>
@@ -75,8 +75,8 @@
             </div><!-- //div#pane-strategy-items -->
           </div><!-- //div.tab-pane -->
         </div><!-- //div.tab-content -->
-      </div>
-    </div>
+      </div><!-- //.card-body -->
+    </div><!-- //.card -->
   </div>
 </div>
 <script>
