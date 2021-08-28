@@ -18,8 +18,8 @@ from django.urls import include, path
 import main.views
 import mypage.views
 import lstm.views
-import portfolio.views
-import strategy.views
+# import portfolio.views
+# import strategy.views
 
 urlpatterns = [
     path('', main.views.index),
@@ -27,7 +27,8 @@ urlpatterns = [
     # path('stock/', stock.views.index),
     path('stock/', include('stock.urls')),
     path('mypage/', mypage.views.index),
-    path('portfolio/', portfolio.views.index),
+    # path('portfolio/', portfolio.views.index),
+    path('portfolio/', include('portfolio.urls')),
     path('lstm/', lstm.views.index),
     path('strategy/', include('strategy.urls')),
     path('board/', include('board.urls')),

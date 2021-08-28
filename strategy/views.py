@@ -39,6 +39,7 @@ def index(request, type='mo_1'):
     )
     
     context = {
+        'strategy_type': type,
         'main_list': strategy_stocks
     }
 
