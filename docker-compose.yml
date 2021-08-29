@@ -15,6 +15,9 @@ services:
       - DB_DATABASE=${MYSQL_DATABASE}
       - DB_USER=${MYSQL_USER}
       - DB_PASSWORD=${MYSQL_PASSWORD}
+      - DATA_API_HOST=${DATA_API_HOST}
+      - DATA_API_PORT=${DATA_API_PORT}
+      - DATA_API_PORT_EXTERNAL=${DATA_API_PORT_EXTERNAL}
     ports:
       - ${APP_PORT_EXTERNAL}:${APP_PORT}
     depends_on:
@@ -54,7 +57,7 @@ services:
       - db
       - webapp
     ports: 
-      - 15000:5000
+      - ${DATA_API_PORT_EXTERNAL}:${DATA_API_PORT}
     entrypoint: /bin/bash ./docker-entrypoint.sh
 volumes:
   maindb:
