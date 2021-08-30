@@ -13,13 +13,13 @@ class BoardConfig(models.Model):
     name = models.CharField(max_length=255, default='sample')
     # 게시판 표시되는 이름
     display_name = models.CharField(max_length=255, default='sample')
-    # date
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     # 활성 여부 (기본값 true)
     is_active = models.BooleanField(default=True)
     # 삭제 여부 (기본값 false)
     is_deleted = models.BooleanField(default=False)
+    # dates
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = "board_config"
@@ -44,13 +44,14 @@ class BoardPost(models.Model):
     title = models.CharField(max_length=200, default='')
     contents = models.TextField(default='')
     hit = models.IntegerField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     g_no = models.IntegerField(default=0)
     o_no = models.IntegerField(default=0)
     depth = models.IntegerField(default=0)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     board = models.ForeignKey(BoardConfig, on_delete=models.CASCADE)
+    # dates
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = "board_posts"

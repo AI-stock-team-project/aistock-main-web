@@ -16,18 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 import main.views
-import mypage.views
 import lstm.views
-# import portfolio.views
-# import strategy.views
 
 urlpatterns = [
     path('', main.views.index),
-    path('test/', main.views.test),
-    # path('stock/', stock.views.index),
+    # path('test/', main.views.test),
     path('stock/', include('stock.urls')),
-    path('mypage/', mypage.views.index),
-    # path('portfolio/', portfolio.views.index),
+    # path('mypage/', mypage.views.index),
+    path('mypage/', include('mypage.urls')),
     path('portfolio/', include('portfolio.urls')),
     path('lstm/', lstm.views.index),
     path('strategy/', include('strategy.urls')),
