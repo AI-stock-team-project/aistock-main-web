@@ -48,10 +48,12 @@ def toggle_stock_pinned(request, stock_id, mode):
             'mode': mode
         })
 
-    user_id = request.user.id
     msg = ''
 
-    stock_pinned_qs = UserStockPinned.objects.filter(stock_id = stock_id, user_id = user_id)
+    stock_pinned_qs = UserStockPinned.objects.filter(
+        stock_id = stock_id,
+        user_id = request.user.id
+    )
     if mode == 'activate':
         # 활성화.
         if stock_pinned_qs.exists():
