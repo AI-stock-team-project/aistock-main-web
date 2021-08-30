@@ -101,7 +101,7 @@
             </a>
             {% if user.is_authenticated %}
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser2">
-              <li><a class="dropdown-item" href="#">관심 종목</a></li>
+              <li><a class="dropdown-item" href="{% url 'mypage:pinned_stock' %}">관심 종목</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="{{ settings.CUSTOM.LOGOUT_URL }}">Sign out</a></li>
             </ul>
@@ -131,7 +131,7 @@
                   <li><b></b></li>
                   <li><a class="dropdown-item" href="/mypage/">마이페이지</a></li>
                   <li><a class="dropdown-item" href="{% url 'portfolio:index' %}">포트폴리오 만들기</a></li>
-                  <li><a class="dropdown-item" href="#">관심 종목</a></li>
+                  <li><a class="dropdown-item" href="{% url 'mypage:pinned_stock' %}">관심 종목</a></li>
                   <li>
                       <hr class="dropdown-divider">
                   </li>
