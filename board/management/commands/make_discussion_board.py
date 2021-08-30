@@ -53,7 +53,6 @@ class Command(BaseCommand):
         PostFactory(title='주가예측 전망')
         PostFactory(title='제발')
         PostFactory(title='공매도가')
-        PostFactory(title='어....?')
         PostFactory(title='오늘장 수고')
         PostFactory(title='약세장')
         PostFactory(title='예측과 분석의 차이')
