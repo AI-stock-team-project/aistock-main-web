@@ -91,9 +91,36 @@
     }
 
     function onSuccess(responseText){
-        console.log(responseText)
-        response_json = JSON.parse(responseText)
-        print(response_json)
-        mo_1 = document.getElementById('rank_mo_1')
+        // console.log(responseText)
+        const json = JSON.parse(responseText)
+        // console.log(json)
+        /*
+        el_mo_1 = document.getElementById('rank_mo_1')
+        el_mo_1.innerHTML = ''
+
+        var html = ''
+        json.mo_1.forEach(it => {
+            console.log(it)
+            html += `<li class="list-group-item">${it.name}</li>`
+        });
+        el_mo_1.innerHTML = html*/
+
+        appendList('rank_mo_1', json.mo_1)
+        appendList('rank_mo_3', json.mo_3)
+        appendList('rank_soaring', json.soaring)
+        appendList('rank_dual_mo', json.dual_mo)
+        appendList('rank_up_freq', json.up_freq)
+    }
+
+    function appendList(sel, json){
+        el = document.getElementById(sel)
+        el.innerHTML = ''
+
+        var html = ''
+        json.forEach(it => {
+            // console.log(it)
+            html += `<li class="list-group-item">${it.name}</li>`
+        });
+        el.innerHTML = html
     }
 })();
