@@ -51,7 +51,7 @@ class Command(BaseCommand):
         PostFactory(title='폭등 마감')
         PostFactory(title='승부처')
         PostFactory(title='주가예측 전망')
-        PostFactory(title='제발')
+        # PostFactory(title='제발')
         PostFactory(title='공매도가')
         PostFactory(title='오늘장 수고')
         PostFactory(title='약세장')
