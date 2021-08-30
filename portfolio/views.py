@@ -100,7 +100,25 @@ def test_report(request):
         {'name': 'NaN', 'symbol': 'NaN', 'number': 52.0, 'money': 14943300.0, 'weight': 1.0}
     ]
 
+    report = {
+        'expected_annual_return': 0.1,
+        'annual_volatility': 0.1,
+        'sharpe_ratio': 10.0,
+        'balance': 9450.0,
+        'trends_file_url': '/static/return_trends_20210830_104720.png',
+        'votality_file_url': '/static/votality_trends_20210830_104720.png'
+    }
+
+    v_parameters = {
+        'years': 1,
+        'money': 15000000,
+        'optimize_method': 'efficient',
+        'risk': '0.3'
+    }
+
     context = {
+        'params': v_parameters,
+        'report': report,
         'portfolio' : portfolio,
 
     }
