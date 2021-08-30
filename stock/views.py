@@ -6,10 +6,15 @@ def index(request):
     """
     종목 조회
     """
-    results = Stock.objects.all()
-    paginator = Paginator(results, per_page=10)
-    main_list = paginator.get_page(1)
 
+    # 페이지 변수
+    page = int(request.GET.get('page', '1'))
+    # 목록에서 표현되는 게시글 수 
+    per_page = 20
+
+    results = Stock.objects.all()
+    paginator = Paginator(results, per_page=per_page)
+    main_list = paginator.get_page(page)
 
     context = {
         'main_list': main_list
