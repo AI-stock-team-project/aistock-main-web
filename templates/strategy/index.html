@@ -28,7 +28,7 @@
                 <th>{{ item.ticker }}</th>
                 <td>{{ item.name }}</td>
                 <td>{{ item.market }}</td>
-                <td>{{ item.close }}</td>
+                <td>{{ item.close|floatformat:"0g" }}</td>
               </tr>
               {% endfor %}
             </tbody>

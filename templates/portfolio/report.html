@@ -24,7 +24,7 @@
             <tbody>
               <tr>
                 <th>{{ params.years }}</th>
-                <td>{{ params.money }}</td>
+                <td>{{ params.money|floatformat:"0g" }}</td>
                 {% if params.optimize_method != 'max_sharpe' %}
                 <td>{{ params.risk }}</td>
                 {% endif %}
@@ -63,7 +63,7 @@
                   </th>
                   <td>{{ item.symbol }}</td>
                   <td>{{ item.number|floatformat:"0" }}</td>
-                  <td>{{ item.money|floatformat:"0" }}</td>
+                  <td>{{ item.money|floatformat:"0g" }}</td>
                   <td>{{ item.weight|floatformat:2 }}</td>
                 </tr>
                 {% endfor %}
