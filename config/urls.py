@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 import main.views
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', main.views.index),
+    path('robots.txt',  TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
     # path('test/', main.views.test),
     path('stock/', include('stock.urls')),
     # path('mypage/', mypage.views.index),
