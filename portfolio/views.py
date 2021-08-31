@@ -103,8 +103,8 @@ def test_report(request):
         'annual_volatility': 0.123456789123456789,
         'sharpe_ratio': 10.123456789123456789,
         'balance': 9450.123456789123456789,
-        'trends_file_url': '/static/return_trends_20210830_104720.png',
-        'votality_file_url': '/static/votality_trends_20210830_104720.png'
+        'trends_file_url': '/static/_return_trends_sample.png',
+        'votality_file_url': '/static/_votality_trends_sample.png'
     }
 
     v_parameters = {

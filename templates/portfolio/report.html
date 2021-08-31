@@ -55,7 +55,7 @@
                 {% for item in portfolio %}
                 <tr>
                   <th>
-                    {% if item.name == 'NaN' %}
+                    {% if item.name == 'NaN' or item.name == 'nan' %}
                     합계
                     {% else %}
                     {{ item.name }}
@@ -77,14 +77,16 @@
       <h5>포트폴리오 성과</h5>
       <div class="card mt-2">
         <div class="card-body" style="min-height: 300px;">
+          {% widthratio report.expected_annual_return 1 100 as expected_annual_return %}
+          {% widthratio report.annual_volatility 1 100 as annual_volatility %}
           <h5>포트폴리오 기대 수익률</h5>
-          <span>{{ report.expected_annual_return|floatformat:2 }} %</span>
+          <span>{{ expected_annual_return|floatformat:2 }} %</span>
           <h5 class="mt-3">포트폴리오 예상 변동률</h5>
-          <span>{{ report.annual_volatility|floatformat:2 }} %</span>
+          <span>{{ annual_volatility|floatformat:2 }} %</span>
           <h5 class="mt-3">샤프비율</h5>
           <span>{{ report.sharpe_ratio|floatformat:2 }}</span>
           <h5 class="mt-3">에상 잔금 (원)</h5>
-          <span>{{ report.balance|floatformat:"0" }} 원</span>
+          <span>{{ report.balance|floatformat:"0g" }} 원</span>
         </div><!-- //.card-body -->
       </div><!-- //.card -->
     </div>
