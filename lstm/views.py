@@ -62,5 +62,5 @@ def report_demo(request):
     return render(request, 'lstm/report.html', {
         'predicted_close_price': '20729',
         'stock_symbol': '006840',
-        'graph_url': '/static/return_lstm_20210901_041830.png'
+        'graph_url': '/static/_return_lstm_sample.png'
     })
