@@ -23,7 +23,9 @@
 서브모듈을 포함하고 있으므로, 서브모듈에 대한 명령어도 같이 포함.
 
 ```
-git clone --recursive https://github.com/AI-stock-team-project/aistock-main-web.git
+git clone --recursive https://github.com/AI-stock-team-project/aistock-main-web.git <폴더명>
+cd <폴더명>
+git submodule foreach --recursive git checkout master
 ```
 
 
@@ -31,6 +33,7 @@ git clone --recursive https://github.com/AI-stock-team-project/aistock-main-web.
 만약, 단순히 git clone 만 했을 때에, data-api 폴더가 비어있다면 (서브모듈을 내려받지 못했다면) 다음의 명령어로 data-api 폴더 내의 파일을 내려받기
 ```
 git submodule update --init --recursive
+git submodule foreach --recursive git checkout master
 ```
 
 
