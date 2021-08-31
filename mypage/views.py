@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from mypage.models import UserStockPinned
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
     """
@@ -9,6 +11,7 @@ def index(request):
     return render(request, 'mypage/index.html')
 
 
+@login_required()
 def pinned_stock(request):
     # 유저 인증 여부 체크.
     if not request.user.is_active:
@@ -17,7 +20,7 @@ def pinned_stock(request):
     # 페이지 변수
     page = int(request.GET.get('page', '1'))
     # 목록에서 표현되는 게시글 수 
-    per_page = 20
+    per_page = 30
 
     stock_pinned_qs = UserStockPinned.objects.filter(
         user_id = request.user.id,

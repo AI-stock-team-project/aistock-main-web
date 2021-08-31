@@ -61,7 +61,7 @@
                 <div class="row justify-content-center">
                   <div class="d-grid gap-2 gap-lg-3 col-sm-6">
                     <button class="btn btn-primary cs-handle-items-subpane" type="button" data-target="strategy">전략별 종목 리스트로 선택</button>
-                    <button class="btn btn-secondary cs-handle-items-subpane" type="button" data-target="pinned">관심 종목에서 선택</button>
+                    <button class="btn btn-secondary cs-handle-items-subpane {% if not user.is_authenticated %}disabled{% endif %}" type="button" data-target="pinned">관심 종목에서 선택</button>
                   </div>
                 </div>
               </div><!-- //div.text-center -->
