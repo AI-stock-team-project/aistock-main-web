@@ -17,7 +17,7 @@ def pinned_stock(request):
     # 페이지 변수
     page = int(request.GET.get('page', '1'))
     # 목록에서 표현되는 게시글 수 
-    per_page = 20
+    per_page = 30
 
     stock_pinned_qs = UserStockPinned.objects.filter(
         user_id = request.user.id,

@@ -14,7 +14,7 @@ def index(request):
     # 페이지 변수
     page = int(request.GET.get('page', '1'))
     # 목록에서 표현되는 게시글 수 
-    per_page = 20
+    per_page = 70
 
     results = Stock.objects.all()
 
