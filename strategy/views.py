@@ -9,7 +9,7 @@ from django.db.models import Subquery
 # Create your views here.
 def index(request, type='mo_1'):
     """
-    전략별
+    전략별 종목 리스트
     """
 
     strategy_types = {
@@ -36,10 +36,17 @@ def index(request, type='mo_1'):
         close = Subquery(
             price_qs.values('close')[:1]
         )
-    )
+    ).order_by('rank', 'name')
     
+    # 랭킹 사용 유무
+    if type == 'mo_1' or type == 'mo_3' or type == 'up_freq':
+        is_rank_enabled = True
+    else:
+        is_rank_enabled = False
+
     context = {
         'strategy_type': type,
+        'is_rank_enabled': is_rank_enabled,
         'main_list': strategy_stocks
     }
 

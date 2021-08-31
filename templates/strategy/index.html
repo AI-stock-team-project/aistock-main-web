@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container mt-3">
   <div class="mt-3">
-    <h3>전략별</h3>
+    <h3>전략별 종목 리스트</h3>
     <a href="{% url 'strategy:mo_1' %}" class="btn my-1 {% if strategy_type == 'mo_1' %}btn-primary{% else %}btn-secondary{% endif %}">모멘텀 1개월</a>
     <a href="{% url 'strategy:mo_3' %}" class="btn my-1 {% if strategy_type == 'mo_3' %}btn-primary{% else %}btn-secondary{% endif %}">모멘텀 3개월</a>
     <a href="{% url 'strategy:dual_mo' %}" class="btn my-1 {% if strategy_type == 'dual_mo' %}btn-primary{% else %}btn-secondary{% endif %}">듀얼 모멘텀</a>
@@ -20,6 +20,9 @@
                 <th scope="col">종목명</th>
                 <th scope="col">구분</th>
                 <th scope="col">전일종가</th>
+                {% if is_rank_enabled %}
+                <th scope="col">순위</th>
+                {% endif %}
               </tr>
             </thead>
             <tbody>
@@ -28,7 +31,10 @@
                 <th>{{ item.ticker }}</th>
                 <td>{{ item.name }}</td>
                 <td>{{ item.market }}</td>
-                <td>{{ item.close }}</td>
+                <td>{{ item.close|floatformat:"0g" }}</td>
+                {% if is_rank_enabled %}
+                <td>{{ item.rank }}</td>
+                {% endif %}
               </tr>
               {% endfor %}
             </tbody>
