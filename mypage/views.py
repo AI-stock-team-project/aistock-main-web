@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from mypage.models import UserStockPinned
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
     """
@@ -9,6 +11,7 @@ def index(request):
     return render(request, 'mypage/index.html')
 
 
+@login_required()
 def pinned_stock(request):
     # 유저 인증 여부 체크.
     if not request.user.is_active:

@@ -101,10 +101,10 @@ def test_report(request):
     ]
 
     report = {
-        'expected_annual_return': 0.1,
-        'annual_volatility': 0.1,
-        'sharpe_ratio': 10.0,
-        'balance': 9450.0,
+        'expected_annual_return': 0.123456789123456789,
+        'annual_volatility': 0.123456789123456789,
+        'sharpe_ratio': 10.123456789123456789,
+        'balance': 9450.123456789123456789,
         'trends_file_url': '/static/return_trends_20210830_104720.png',
         'votality_file_url': '/static/votality_trends_20210830_104720.png'
     }
