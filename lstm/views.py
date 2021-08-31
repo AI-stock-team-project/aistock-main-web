@@ -1,15 +1,29 @@
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 import json
 import requests
+from mypage.models import UserStockPinned
 
-# Create your views here.
+
+@login_required()
 def index(request):
     """
     LSTM
     """
-    return render(request, 'lstm/index.html')
+    # 관심 종목 조회
+
+    main_list = UserStockPinned.objects.filter(
+        user_id = request.user.id,
+        is_active = True
+    ).all()
+
+
+    context = {
+        'main_list': main_list
+    }
+    return render(request, 'lstm/index.html', context)
 
 
 def predict_close_price_report(request):
