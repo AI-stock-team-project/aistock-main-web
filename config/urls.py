@@ -21,6 +21,7 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('', main.views.index),
     path('robots.txt',  TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
+    path('strategy_rank/', main.views.ajax_strategy_stock_top_index),
     # path('test/', main.views.test),
     path('stock/', include('stock.urls')),
     # path('mypage/', mypage.views.index),
