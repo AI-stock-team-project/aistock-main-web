@@ -4,6 +4,7 @@ import requests
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.conf import settings
 import json
+from math import isnan
 
 
 def index(request):
@@ -76,6 +77,10 @@ def build_portfolio_report(request):
     portfolio = json_data.get('result_df')
     report = json_data.get('result')
 
+    for item in portfolio:
+        if str(item['name']).lower() == 'nan':
+            item['name'] = '합계'
+    
     v_parameters = {
         'years': years,
         'money': money,
@@ -95,7 +100,7 @@ def test_report(request):
         {'name': 'NAVER', 'symbol': '035420', 'number': 30.0, 'money': 12600000.0, 'weight': 0.8431872477966714}, 
         {'name': '삼성전자', 'symbol': '005930', 'number': 21.0, 'money': 1560300.0, 'weight': 0.10441468751882114}, 
         {'name': 'LG화학', 'symbol': '051910', 'number': 1.0, 'money': 783000.0, 'weight': 0.05239806468450744}, 
-        {'name': 'NaN', 'symbol': 'NaN', 'number': 52.0, 'money': 14943300.0, 'weight': 1.0}
+        {'name': '합계', 'symbol': 'NaN', 'number': 52.0, 'money': 14943300.0, 'weight': 1.0}
     ]
 
     report = {
