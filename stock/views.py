@@ -37,7 +37,7 @@ def index(request):
     return render(request, 'stock/list.html', context)
 
 
-def toggle_stock_pinned(request, stock_id, mode):
+def toggle_stock_pinned(request, stock_symbol, mode):
     """
     관심 종목 추가/제거의 토글을 한 경우
     """
@@ -48,10 +48,14 @@ def toggle_stock_pinned(request, stock_id, mode):
             'mode': mode
         })
 
-    msg = ''
+    result_message = ''
 
+    # 종목 조회
+    stock = Stock.objects.get(symbol=stock_symbol)
+
+    # 관심 종목 테이블에 대한 쿼리셋
     stock_pinned_qs = UserStockPinned.objects.filter(
-        stock_id = stock_id,
+        stock_id = stock.id,
         user_id = request.user.id
     )
     if mode == 'activate':
@@ -62,16 +66,18 @@ def toggle_stock_pinned(request, stock_id, mode):
             if not stock_pinned.is_active:
                 stock_pinned.is_active = True
                 stock_pinned.save()
+                result_message = 'sucess [activate]'
 
         else:
             # 신규 추가.
-            stock = Stock.objects.get(id=stock_id)
+            # stock = Stock.objects.get(symbol=stock_symbol)
 
             # 추가 처리
             stock_pinned = UserStockPinned()
             stock_pinned.stock = stock
             stock_pinned.user = request.user
             stock_pinned.save()
+            result_message = 'sucess [activate]'
 
     else:
         # 비활성화
@@ -81,21 +87,16 @@ def toggle_stock_pinned(request, stock_id, mode):
             if stock_pinned.is_active:
                 stock_pinned.is_active = False
                 stock_pinned.save()
+
+                result_message = 'sucess [deactivate]'
         else:
+            # 원래라면 발생되지 않는 부분.
             return JsonResponse({
-                'message' : 'success',
+                'message' : 'error',
                 'mode': mode
             })
 
-    # 데이터 얻기
-    # pinned_stock = UserStockPinned.objects.get(id=stock_id)
-    # if pinned_stock is None:
-    #     # 신규 생성
-    #     msg = '값이 없음'
-    # else: 
-    #     msg = f'값이 있음 {pinned_stock}'
-
     return JsonResponse({
-        'message' : msg,
+        'message' : result_message,
         'mode': mode
     }, json_dumps_params = {'ensure_ascii': True})
