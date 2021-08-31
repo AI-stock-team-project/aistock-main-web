@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 import main.views
-import lstm.views
 
 urlpatterns = [
     path('', main.views.index),
@@ -25,7 +24,8 @@ urlpatterns = [
     # path('mypage/', mypage.views.index),
     path('mypage/', include('mypage.urls')),
     path('portfolio/', include('portfolio.urls')),
-    path('lstm/', lstm.views.index),
+    # path('lstm/', lstm.views.index),
+    path('lstm/', include('lstm.urls')),
     path('strategy/', include('strategy.urls')),
     path('board/', include('board.urls')),
     # path('news/', mypage.views.index),
