@@ -18,15 +18,15 @@
         // console.log(self)
         // console.log(self.dataset.pinned)
         const is_pinned = (self.dataset.pinned === 'true')
-        const stock_id = self.dataset.stock
+        const stock_symbol = self.dataset.stock
         // console.log(self.dataset)
 
         if(is_pinned){
             // 이미 관심종목에 등록된 것을 토글하면, 등록해제를 진행.
-            url = `/stock/toggle_stock_pinned/deactivate/${stock_id}/`
+            url = `/stock/toggle_stock_pinned/deactivate/${stock_symbol}/`
         } else {
             // 관심종목에 등록
-            url = `/stock/toggle_stock_pinned/activate/${stock_id}/`
+            url = `/stock/toggle_stock_pinned/activate/${stock_symbol}/`
         }
         
         // console.log(url)

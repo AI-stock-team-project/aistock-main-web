@@ -15,7 +15,7 @@
     </nav>
     <div class="card mt-2">
       <div class="card-body" style="min-height: 300px;">
-        <form class="portfolio-form" method="post" action="{% url 'portfolio:report' %}">
+        <form method="post" action="{% url 'portfolio:report' %}">
           {% csrf_token %}
           <input type="hidden" value="{{ optimize_method }}" name="optimize_method" id="p_optimize_method">
           <input type="hidden" value="custom" name="asset_method" id="p_asset_method">

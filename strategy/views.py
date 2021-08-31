@@ -5,6 +5,8 @@ from stock.models import Stock, StockPrice
 from .models import StrategyStockList
 from django.core.paginator import Paginator
 from django.db.models import Subquery
+from mypage.models import UserStockPinned
+
 
 # Create your views here.
 def index(request, type='mo_1'):
@@ -25,10 +27,13 @@ def index(request, type='mo_1'):
     price_qs = StockPrice.objects.filter(code=OuterRef('ticker')).order_by('-date')
 
     strategy_stocks = StrategyStockList.objects.filter(
-            strategy_code=strategy_type
-        ).all().annotate(
+        strategy_code=strategy_type
+    ).all().annotate(
         name = Subquery(
             Stock.objects.filter(code=OuterRef('ticker')).values('name')[:1]
+        ),
+        ticker_id = Subquery(
+            Stock.objects.filter(code=OuterRef('ticker')).values('id')[:1]
         ),
         market = Subquery(
             Stock.objects.filter(code=OuterRef('ticker')).values('market')[:1]
@@ -38,6 +43,15 @@ def index(request, type='mo_1'):
         )
     ).order_by('rank', 'name')
     
+    
+    if request.user.is_active:
+        pinned_qs = UserStockPinned.objects.filter(stock_id = OuterRef('ticker_id'), user_id = request.user.id)
+        strategy_stocks = strategy_stocks.annotate(
+            pinned = Subquery(
+                pinned_qs.values('is_active')[:1]
+            )
+        )
+
     # 랭킹 사용 유무
     if type == 'mo_1' or type == 'mo_3' or type == 'up_freq':
         is_rank_enabled = True
