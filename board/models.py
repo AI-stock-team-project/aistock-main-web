@@ -55,5 +55,3 @@ class BoardPost(models.Model):
 
     class Meta:
         db_table = "board_posts"
-
-

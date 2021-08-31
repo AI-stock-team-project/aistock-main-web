@@ -23,8 +23,8 @@ def pinned_stock(request):
     per_page = 30
 
     stock_pinned_qs = UserStockPinned.objects.filter(
-        user_id = request.user.id,
-        is_active = True
+        user_id=request.user.id,
+        is_active=True
     )
 
     paginator = Paginator(stock_pinned_qs, per_page=per_page)

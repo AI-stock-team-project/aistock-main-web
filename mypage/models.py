@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from stock.models import Stock
 
+
 # Create your models here.
 class UserStockPinned(models.Model):
     """
