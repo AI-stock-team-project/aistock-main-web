@@ -54,17 +54,12 @@
               <tbody>
                 {% for item in portfolio %}
                 <tr>
-                  <th>
-                    {% if item.name == 'NaN' or item.name == 'nan' %}
-                    합계
-                    {% else %}
-                    {{ item.name }}
-                    {% endif %}
-                  </th>
+                  <th>{{ item.name }}</th>
                   <td>{{ item.symbol }}</td>
                   <td>{{ item.number|floatformat:"0" }}</td>
                   <td>{{ item.money|floatformat:"0g" }}</td>
-                  <td>{{ item.weight|floatformat:2 }}</td>
+                  {% widthratio item.weight 1 100 as item_weight %}
+                  <td>{{ item_weight|floatformat:2 }}</td>
                 </tr>
                 {% endfor %}
               </tbody>
