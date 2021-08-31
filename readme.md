@@ -19,6 +19,22 @@
 `requirements.txt` 참고
 
 
+# git 으로 코드를 내려받기
+서브모듈을 포함하고 있으므로, 서브모듈에 대한 명령어도 같이 포함.
+
+```
+git clone --recursive https://github.com/AI-stock-team-project/aistock-main-web.git
+```
+
+
+
+만약, 단순히 git clone 만 했을 때에, data-api 폴더가 비어있다면 (서브모듈을 내려받지 못했다면) 다음의 명령어로 data-api 폴더 내의 파일을 내려받기
+```
+git submodule update --init --recursive
+```
+
+
+
 # 개발 환경 셋팅
 docker를 이용하여 구동환경을 맞춰주고, 개발도구(PyCharm 또는 VSCode)로 작업을 진행한다.
 
