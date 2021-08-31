@@ -1,10 +1,9 @@
-import portfolio
+# import portfolio
 from django.shortcuts import render
 import requests
-from django.http import HttpResponseRedirect, HttpResponse
+# from django.http import HttpResponseRedirect, HttpResponse
 from django.conf import settings
 import json
-
 
 
 def index(request):
@@ -60,7 +59,6 @@ def build_portfolio_report(request):
     # url = f'http://data-api:5000/portfolio/{opt_method_uri}/{asset_method_uri}'
     url = f'http://{settings.DATA_API_URL}/portfolio/{opt_method_uri}/{asset_method_uri}'
     
-
     # api 파라미터
     params = {
         'years': years,
@@ -87,7 +85,7 @@ def build_portfolio_report(request):
     context = {
         'params': v_parameters,
         'report': report,
-        'portfolio' : portfolio,
+        'portfolio': portfolio,
     }
     return render(request, 'portfolio/report.html', context)
 
@@ -119,7 +117,7 @@ def test_report(request):
     context = {
         'params': v_parameters,
         'report': report,
-        'portfolio' : portfolio,
+        'portfolio': portfolio,
 
     }
     return render(request, 'portfolio/report.html', context)

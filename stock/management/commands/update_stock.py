@@ -28,6 +28,7 @@ class Command(BaseCommand):
                 # resp_data = json.loads(data.decode(encoding))
                 resp_data = json.loads(data.decode('utf-8'))
 
+                # noinspection PyUnusedLocal
                 ret = ''
                 # 결과값에 key 가 있을 때, 재통신
                 key = resp_data['key']

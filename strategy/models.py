@@ -1,5 +1,6 @@
 from django.db import models
-from django.db.models import indexes
+# from django.db.models import indexes
+
 
 # Create your models here.
 class StrategyStockList(models.Model):

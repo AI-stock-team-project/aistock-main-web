@@ -15,10 +15,9 @@ def index(request):
     # 관심 종목 조회
 
     main_list = UserStockPinned.objects.filter(
-        user_id = request.user.id,
-        is_active = True
+        user_id=request.user.id,
+        is_active=True
     ).all()
-
 
     context = {
         'main_list': main_list
@@ -36,7 +35,6 @@ def predict_close_price_report(request):
     # ######## api 통신 ########
     url = f'http://{settings.DATA_API_URL}/lstm/predict_close_price/{stock_symbol}'
 
-    
     start_date = '2018-01-01'
     # api 파라미터
     params = {

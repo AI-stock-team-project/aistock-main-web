@@ -279,6 +279,8 @@ class FormSubmit {
                 e.preventDefault()
 
                 const btn = e.target
+                // console.log('zzz')
+                this.spinner(btn)
                 if (btn.dataset.assetType == 'custom'){
                     return this.onSubmit('custom')
                 } else {
@@ -286,6 +288,14 @@ class FormSubmit {
                 }
             })
         })
+    }
+    spinner(btn){
+        // console.log(btn)
+        btn.innerHTML = `
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Loading...
+        `
+        btn.setAttribute('disabled', true)
     }
     validate(){
         this.debug('validate start')

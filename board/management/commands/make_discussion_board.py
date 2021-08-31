@@ -59,7 +59,6 @@ class Command(BaseCommand):
         PostFactory(title='네이버, 차량용인포테인먼트(IVI) 플랫폼 그린카3000대에')
         PostFactory(title='차랑용 인포테인먼트(IVI) & 자율주행 기술 ')
 
-
         models.BoardPost.objects.filter(depth=0).update(
             g_no=F('id')
         )

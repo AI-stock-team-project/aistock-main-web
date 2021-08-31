@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from .models import Stock, StockPrice
+from .models import Stock
 from django.core.paginator import Paginator
 from mypage.models import UserStockPinned
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.db.models.expressions import OuterRef
 from django.db.models import Subquery
+
 
 def index(request):
     """
@@ -21,9 +22,9 @@ def index(request):
     if request.user.is_active:
         # 로그인된 상태에서는, 관심 종목 여부를 같이 조회한다.
         # price_qs = StockPrice.objects.filter(code=OuterRef('ticker')).order_by('-date')
-        pinned_qs = UserStockPinned.objects.filter(stock_id = OuterRef('id'), user_id = request.user.id)
+        pinned_qs = UserStockPinned.objects.filter(stock_id=OuterRef('id'), user_id=request.user.id)
         results = results.annotate(
-            pinned = Subquery(
+            pinned=Subquery(
                 pinned_qs.values('is_active')[:1]
             )
         )
@@ -44,7 +45,7 @@ def toggle_stock_pinned(request, stock_symbol, mode):
     # 유저 인증 여부 체크.
     if not request.user.is_active:
         return JsonResponse({
-            'message' : 'failed',
+            'message': 'failed',
             'mode': mode
         })
 
@@ -55,8 +56,8 @@ def toggle_stock_pinned(request, stock_symbol, mode):
 
     # 관심 종목 테이블에 대한 쿼리셋
     stock_pinned_qs = UserStockPinned.objects.filter(
-        stock_id = stock.id,
-        user_id = request.user.id
+        stock_id=stock.id,
+        user_id=request.user.id
     )
     if mode == 'activate':
         # 활성화.
@@ -92,11 +93,11 @@ def toggle_stock_pinned(request, stock_symbol, mode):
         else:
             # 원래라면 발생되지 않는 부분.
             return JsonResponse({
-                'message' : 'error',
+                'message': 'error',
                 'mode': mode
             })
 
     return JsonResponse({
-        'message' : result_message,
+        'message': result_message,
         'mode': mode
-    }, json_dumps_params = {'ensure_ascii': True})
+    }, json_dumps_params={'ensure_ascii': True})

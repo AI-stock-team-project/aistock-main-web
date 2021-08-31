@@ -154,8 +154,8 @@ MESSAGE_TAGS = {
 }
 
 DATA_API_URL = os.getenv('DATA_API_HOST', 'api') + ':' + os.getenv('DATA_API_PORT', '5000')
-DATA_API_EXTERNAL_URL = os.getenv('DATA_API_HOST_EXTERNAL', 'localhost') + ':' + os.getenv('DATA_API_PORT_EXTERNAL', '15000')
-
+DATA_API_EXTERNAL_URL = os.getenv('DATA_API_HOST_EXTERNAL', 'localhost') + ':' \
+                        + os.getenv('DATA_API_PORT_EXTERNAL', '15000')
 
 # templates 로 보낼 설정값 셋 DATA_API_HOST  DATA_API_PORT
 CUSTOM = {

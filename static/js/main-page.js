@@ -63,8 +63,51 @@
 (function() {
     var httpRequest;
     // document.getElementById("ajaxButton").addEventListener('click', makeRequest);
-    makeRequest('http://localhost:15000/strategy_rank/')
+    // var api_url = document.getElementById("api_server_info").dataset
+    // console.log(API_SERVER_URL)
+    
+    // makeRequest(`${API_SERVER_URL}/strategy_rank/`)
+    doAjaxFetch('/strategy_rank/',(text) => {
+      onSuccess(text)
+    })
   
+    function doAjaxFetch(url, onSuccess){
+      const headers = new Headers();
+      headers.append('X-CSRFToken', getCookie('csrftoken'));
+  
+      fetch(url, {
+          method: 'POST',
+          headers,
+          mode: 'same-origin'  // Do not send CSRF token to another domain.
+      }).then(function(response) {
+          response.text().then(function(text){
+              // console.log(text)
+              onSuccess(text)
+          })
+      });
+  }
+
+      /**
+     * CSRF 를 위한 부분
+     * @param {str} name 
+     * @returns 
+     */
+       function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
     function makeRequest(url) {
       httpRequest = new XMLHttpRequest();
   
@@ -104,6 +147,7 @@
             html += `<li class="list-group-item">${it.name}</li>`
         });
         el_mo_1.innerHTML = html*/
+        // console.log(json.mo_1)
 
         appendList('rank_mo_1', json.mo_1)
         appendList('rank_mo_3', json.mo_3)
