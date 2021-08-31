@@ -37,6 +37,14 @@ git submodule foreach --recursive git checkout master
 ```
 
 
+## git pull 업데이트 내려받을 때
+```
+git pull && git submodule update --recursive
+```
+
+코드를 새로 받으면, 데이터베이스에 변경 같은 부분이 있을 때가 있어서, 
+셋팅할 때와 마찬가지로 docker-compose down 하고 up 하는 커맨드를 해줘야 한다. 해당 커맨드는 다음 항목을 참조할 것
+
 
 # 개발 환경 셋팅
 docker를 이용하여 구동환경을 맞춰주고, 개발도구(PyCharm 또는 VSCode)로 작업을 진행한다.
