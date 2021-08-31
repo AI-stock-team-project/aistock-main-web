@@ -45,9 +45,22 @@ def predict_close_price_report(request):
     json_data = json.loads(response.text)
 
     predicted_close_price = json_data.get('predict_close_price')
+    graph_url = json_data.get('graph_url')
 
     context = {
         'predicted_close_price': predicted_close_price,
-        'stock_symbol': stock_symbol
+        'stock_symbol': stock_symbol,
+        'graph_url': graph_url
     }
     return render(request, 'lstm/report.html', context)
+
+
+def report_demo(request):
+    """
+    결과 화면을 테스트하기 위한 용도
+    """
+    return render(request, 'lstm/report.html', {
+        'predicted_close_price': '20729',
+        'stock_symbol': '006840',
+        'graph_url': '/static/return_lstm_20210901_041830.png'
+    })

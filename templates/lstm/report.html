@@ -7,13 +7,38 @@
     <h3>LSTM 주가 예측</h3>
   </div>
   <div class="mt-5" id="div_input_parameters">
-    <h5>입력 내용</h5>
+    <h5>예측 결과</h5>
     <div class="card mt-2">
       <div class="card-body">
-        입력한 종목 코드 : {{ stock_symbol }}<br>
-        예측한 종가 : {{ predicted_close_price|floatformat:"0g" }}
+        <div style="max-width:550px">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" colspan="2">LSTM 주가 예측</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">입력한 종목 코드</th>
+                <td>{{ stock_symbol }}</td>
+              </tr>
+              <tr>
+                <th scope="row">예측한 종가</th>
+                <td>{{ predicted_close_price|floatformat:"0g" }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div><!-- //.card-body -->
     </div><!-- //.card -->
+    {% if graph_url is not None %}
+    <h5 class="mt-5">비교 그래프</h5>
+    <div class="card">
+      <div class="card-body">    
+        <img src="http://{{ settings.DATA_API_EXTERNAL_URL }}/{{ graph_url }}" class="img-fluid">
+      </div>
+    </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
