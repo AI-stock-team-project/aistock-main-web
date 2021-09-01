@@ -35,7 +35,9 @@ def predict_close_price_report(request):
     # ######## api 통신 ########
     url = f'http://{settings.DATA_API_URL}/lstm/predict_close_price/{stock_symbol}'
 
+    # 참조할 데이터의 시작일자. 
     start_date = '2018-01-01'
+
     # api 파라미터
     params = {
         'start_date': start_date,

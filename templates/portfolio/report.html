@@ -23,10 +23,11 @@
             </thead>
             <tbody>
               <tr>
-                <th>{{ params.years }}</th>
-                <td>{{ params.money|floatformat:"0g" }}</td>
+                <th>{{ params.years }} 년</th>
+                <td>{{ params.money|floatformat:"0g" }} 원</td>
                 {% if params.optimize_method != 'max_sharpe' %}
-                <td>{{ params.risk }}</td>
+                {% widthratio params.risk 1 100 as param_risk %}
+                <td>{{ param_risk }} %</td>
                 {% endif %}
               </tr>
             </tbody>
@@ -80,7 +81,7 @@
           <span>{{ annual_volatility|floatformat:2 }} %</span>
           <h5 class="mt-3">샤프비율</h5>
           <span>{{ report.sharpe_ratio|floatformat:2 }}</span>
-          <h5 class="mt-3">에상 잔금 (원)</h5>
+          <h5 class="mt-3">예상 잔금 (원)</h5>
           <span>{{ report.balance|floatformat:"0g" }} 원</span>
         </div><!-- //.card-body -->
       </div><!-- //.card -->
