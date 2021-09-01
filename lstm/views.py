@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 import json
 import requests
 from mypage.models import UserStockPinned
+from stock.models import Stock
 
 
 @login_required()
@@ -49,11 +50,20 @@ def predict_close_price_report(request):
     predicted_close_price = json_data.get('predict_close_price')
     graph_url = json_data.get('graph_url')
 
+    # 종목명 필요함.
+    stock_qs = Stock.objects.filter(symbol=stock_symbol)
+    if stock_qs.exists():
+        stock = stock_qs.first()
+    else:
+        stock = None
+
     context = {
         'predicted_close_price': predicted_close_price,
         'stock_symbol': stock_symbol,
-        'graph_url': graph_url
+        'graph_url': graph_url,
+        'stock': stock
     }
+
     return render(request, 'lstm/report.html', context)
 
 
